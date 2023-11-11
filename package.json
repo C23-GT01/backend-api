@@ -1,0 +1,12 @@
+{
+  "name": "backend-api",
+  "version": "0.0.1",
+  "description": "RestAPI for Trackmate",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Cloud Computing Team",
+  "license": "ISC"
+}

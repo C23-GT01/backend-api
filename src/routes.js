@@ -1,18 +1,18 @@
-const { 
-    getAllProducts,
-    getProductByIdHandler,
-    addProductHandler,
-    editProductHandler,
-    deleteProductByIdHandler,
+const {
+  getAllProducts,
+  getProductByIdHandler,
+  addProductHandler,
+  editProductHandler,
+  deleteProductByIdHandler,
 } = require('./handler');
 
 const routes = [
-    {
-      method: 'GET',
-      url: '/products',
-      handler: getAllProducts,
-    },
-    {
+  {
+    method: 'GET',
+    url: '/products',
+    handler: getAllProducts,
+  },
+  {
     method: 'GET',
     url: '/products/{id}',
     handler: getProductByIdHandler,
@@ -32,6 +32,6 @@ const routes = [
     url: '/products/{id}',
     handler: deleteProductByIdHandler,
   },
-  ];
-   
-  module.exports = routes;
+];
+
+module.exports = routes;

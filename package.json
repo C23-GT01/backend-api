@@ -4,7 +4,7 @@
   "description": "RestAPI for Trackmate",
   "main": "index.js",
   "scripts": {
-    "start": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./src/server.js"
   },
   "keywords": [],
   "author": "Cloud Computing Team",

@@ -52,12 +52,12 @@ const getAllProductsHandler = () => ({
   status: 'success',
   message: 'menampilkan semua produk',
   data: {
-    products: products.map((product) => ({
+    products: products && products.length > 0 ? products.map((product) => ({
       id: product.id,
       name: product.name,
       image: product.image,
       price: product.price,
-    })),
+    })) : null,
   },
 });
 

@@ -1,35 +1,35 @@
 const {
-  getAllProducts,
+  getAllProductsHandler,
   getProductByIdHandler,
   addProductHandler,
-  editProductHandler,
+  editProductByIdHandler,
   deleteProductByIdHandler,
 } = require('./handler');
 
 const routes = [
   {
     method: 'GET',
-    url: '/products',
-    handler: getAllProducts,
+    path: '/products',
+    handler: getAllProductsHandler,
   },
   {
     method: 'GET',
-    url: '/products/{id}',
+    path: '/products/{id}',
     handler: getProductByIdHandler,
   },
   {
     method: 'POST',
-    url: '/products',
+    path: '/products',
     handler: addProductHandler,
   },
   {
     method: 'PUT',
-    url: '/products',
-    handler: editProductHandler,
+    path: '/products',
+    handler: editProductByIdHandler,
   },
   {
     method: 'DELETE',
-    url: '/products/{id}',
+    path: '/products/{id}',
     handler: deleteProductByIdHandler,
   },
 ];

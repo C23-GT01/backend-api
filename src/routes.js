@@ -24,7 +24,7 @@ const routes = [
   },
   {
     method: 'PUT',
-    path: '/products',
+    path: '/products/{id}',
     handler: editProductByIdHandler,
   },
   {

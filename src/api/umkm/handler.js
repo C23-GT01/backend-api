@@ -12,7 +12,7 @@ class UMKMHandler {
     try {
       const { id } = request.params;
 
-      const umkm = this._service.getDetailUMKM(id);
+      const umkm = this._service.getUmkmById(id);
 
       return {
         status: 'success',
@@ -36,8 +36,7 @@ class UMKMHandler {
         image, name, description, location,
         history, impact, contact,
       } = request.payload;
-
-      const umkmId = this._service.addUMKM({
+      const umkmId = this._service.addUmkm({
         image,
         name,
         description,
@@ -46,6 +45,7 @@ class UMKMHandler {
         impact,
         contact,
       });
+      console.log(umkmId);
 
       const response = h.response({
         status: 'success',
@@ -70,7 +70,7 @@ class UMKMHandler {
     try {
       const { id } = request.params;
 
-      this._service.editUMKM(id, request.payload);
+      this._service.editUmkmById(id, request.payload);
 
       return {
         status: 'success',

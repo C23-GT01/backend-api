@@ -1,4 +1,5 @@
 const { nanoid } = require('nanoid');
+const InvariantError = require('../../exceptions/InvariantError.js');
 
 class ProductsService {
   constructor() {
@@ -33,7 +34,7 @@ class ProductsService {
     const isSuccess = this._products.filter((product) => product.id === id).length > 0;
 
     if (!isSuccess) {
-      throw new Error('Produk gagal ditambahkan');
+      throw new InvariantError('Produk gagal ditambahkan');
     }
 
     return id;

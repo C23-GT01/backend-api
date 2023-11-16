@@ -3,7 +3,7 @@ require('dotenv').config();
 const Hapi = require('@hapi/hapi');
 
 const products = require('./api/products');
-const ProductsService = require('./services/inMemory/ProductsService');
+const ProductsService = require('./services/postgres/ProductsService');
 const umkms = require('./api/umkm');
 const UmkmsService = require('./services/inMemory/UmkmService');
 

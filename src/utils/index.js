@@ -1,0 +1,31 @@
+const mapDBToModel = ({
+  id,
+  name,
+  image,
+  price,
+  description,
+  resources,
+  production,
+  impact,
+  contribution,
+  umkm,
+  category,
+  created_at,
+  updated_at,
+}) => ({
+  id,
+  name,
+  image,
+  price,
+  description,
+  resources,
+  production,
+  impact,
+  contribution,
+  umkm,
+  category,
+  createdAt: created_at,
+  updatedAt: updated_at,
+});
+
+module.exports = { mapDBToModel };

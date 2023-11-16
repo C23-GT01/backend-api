@@ -12,7 +12,7 @@ class ProductsHandler {
     this.deleteProductByIdHandler = this.deleteProductByIdHandler.bind(this);
   }
 
-  postProductHandler(request, h) {
+  async postProductHandler(request, h) {
     try {
       this._validator.validateProductPayload(request.payload);
       const {
@@ -20,7 +20,7 @@ class ProductsHandler {
         production, impact, contribution, umkm, category,
       } = request.payload;
 
-      const productId = this._service.addProduct({
+      const productId = await this._service.addProduct({
         image,
         name,
         price,
@@ -63,8 +63,8 @@ class ProductsHandler {
     }
   }
 
-  getAllProductsHandler() {
-    const products = this._service.getProducts();
+  async getAllProductsHandler() {
+    const products = await this._service.getProducts();
     console.log(products);
     return {
       status: 'success',
@@ -80,11 +80,11 @@ class ProductsHandler {
     };
   }
 
-  getProductByIdHandler(request, h) {
+  async getProductByIdHandler(request, h) {
     try {
       const { id } = request.params;
 
-      const product = this._service.getProductById(id);
+      const product = await this._service.getProductById(id);
 
       return {
         status: 'success',

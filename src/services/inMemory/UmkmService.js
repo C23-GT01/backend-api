@@ -1,8 +1,6 @@
-// const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError.js');
-// const NotFoundError = require('../../exceptions/NotFoundError');
-// const { mapDBToModel } = require('../../utils');
+const NotFoundError = require('../../exceptions/NotFoundError');
 
 class UmkmService {
   constructor() {
@@ -13,7 +11,6 @@ class UmkmService {
     image, name, description, location,
     history, impact, contact,
   }) {
-    console.log('aku disini');
     const id = `Umkm-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const updateAt = createAt;
@@ -91,7 +88,7 @@ class UmkmService {
     const umkm = this._umkm.filter((n) => n.id === id)[0];
 
     if (!umkm) {
-      throw new Error('Umkm tidak ditemukan');
+      throw new NotFoundError('Umkm tidak ditemukan');
     }
     return umkm;
   }
@@ -102,7 +99,7 @@ class UmkmService {
     const index = this._umkm.findIndex((product) => product.id === id);
 
     if (index === -1) {
-      throw new Error('Gagal memperbarui UMKM. Id tidak ditemukan');
+      throw new NotFoundError('Gagal memperbarui UMKM. Id tidak ditemukan');
     }
 
     const updatedAt = new Date().toISOString();

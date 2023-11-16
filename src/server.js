@@ -5,6 +5,10 @@ const ProductsService = require('./services/inMemory/ProductsService');
 const umkms = require('./api/umkm');
 const UmkmsService = require('./services/inMemory/UmkmService');
 
+// validator
+const ProductsValidator = require('./validator/products');
+const UmkmsValidator = require('./validator/umkm');
+
 const init = async () => {
   const productsService = new ProductsService();
   const umkmsService = new UmkmsService();
@@ -25,12 +29,14 @@ const init = async () => {
         plugin: products,
         options: {
           service: productsService,
+          validator: ProductsValidator,
         },
       },
       {
         plugin: umkms,
         options: {
           service: umkmsService,
+          validator: UmkmsValidator,
         },
       },
     ],

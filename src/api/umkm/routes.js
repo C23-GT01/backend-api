@@ -6,6 +6,11 @@ const routes = (handler) => [
   },
   {
     method: 'GET',
+    path: '/umkm',
+    handler: (request, h) => handler.getAllUmkmHandler(request, h),
+  },
+  {
+    method: 'GET',
     path: '/umkm/{id}',
     handler: (request, h) => handler.getDetailUMKMHandler(request, h),
   },

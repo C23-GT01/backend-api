@@ -28,4 +28,28 @@ const mapDBToModel = ({
   updatedAt: updated_at,
 });
 
-module.exports = { mapDBToModel };
+const mapUmkmToModel = ({
+  id,
+  image,
+  name,
+  description,
+  location,
+  history,
+  impact,
+  contact,
+  created_at,
+  updated_at,
+}) => ({
+  id,
+  image,
+  name,
+  description,
+  location,
+  history,
+  impact,
+  contact,
+  createdAt: created_at,
+  updatedAt: updated_at,
+});
+
+module.exports = { mapDBToModel, mapUmkmToModel };

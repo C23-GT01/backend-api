@@ -5,7 +5,7 @@ const Hapi = require('@hapi/hapi');
 const products = require('./api/products');
 const ProductsService = require('./services/postgres/ProductsService');
 const umkms = require('./api/umkm');
-const UmkmsService = require('./services/inMemory/UmkmService');
+const UmkmsService = require('./services/postgres/UmkmService');
 
 // validator
 const ProductsValidator = require('./validator/products');

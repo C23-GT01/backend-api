@@ -44,28 +44,6 @@ class ProductService {
   }
 
   async getProducts() {
-    // if (id === undefined) {
-    //   id = '';
-    // }
-
-    // if (name === undefined) {
-    //   name = '';
-    // }
-
-    // if (image === undefined) {
-    //   image = '';
-    // }
-
-    // if (price === undefined) {
-    //   price = '';
-    // }
-
-    // const query = {
-    //   text: 'SELECT id, name, image, price FROM products WHERE lower
-    // (name) LIKE $1 AND lower(category) LIKE $2',
-    //   values: [`%${name.toLowerCase()}%`, `%${category.toLowerCase()}%`],
-    // };
-
     const result = await this._pool.query('SELECT * FROM products');
 
     return result.rows.map(mapDBToModel);

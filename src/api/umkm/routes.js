@@ -19,6 +19,11 @@ const routes = (handler) => [
     path: '/umkm/{id}',
     handler: (request, h) => handler.putUMKMHandler(request, h),
   },
+  {
+    method: 'DELETE',
+    path: '/umkm/{id}',
+    handler: (request, h) => handler.deleteUmkmByIdHandler(request, h),
+  },
 ];
 
 module.exports = routes;

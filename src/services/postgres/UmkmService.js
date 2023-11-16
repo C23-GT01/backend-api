@@ -74,18 +74,18 @@ class UmkmService {
     }
   }
 
-  //   async deleteUmkmById(id) {
-  //     const query = {
-  //       text: 'DELETE FROM Umkms WHERE id = $1 RETURNING id',
-  //       values: [id],
-  //     };
+  async deleteUmkmById(id) {
+    const query = {
+      text: 'DELETE FROM umkm WHERE id = $1 RETURNING id',
+      values: [id],
+    };
 
-  //     const result = await this._pool.query(query);
+    const result = await this._pool.query(query);
 
-  //     if (!result.rowCount) {
-  //       throw new NotFoundError('Umkm gagal dihapus. Id tidak ditemukan');
-  //     }
-  //   }
+    if (!result.rowCount) {
+      throw new NotFoundError('Umkm gagal dihapus. Id tidak ditemukan');
+    }
+  }
 }
 
 module.exports = UmkmService;

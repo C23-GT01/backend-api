@@ -9,6 +9,7 @@ class UMKMHandler {
     this.getAllUmkmHandler = this.getAllUmkmHandler.bind(this);
     this.postUMKMHandler = this.postUMKMHandler.bind(this);
     this.putUMKMHandler = this.putUMKMHandler.bind(this);
+    this.deleteUmkmByIdHandler = this.deleteUmkmByIdHandler.bind(this);
   }
 
   async getAllUmkmHandler() {
@@ -113,6 +114,37 @@ class UMKMHandler {
       return {
         status: 'success',
         message: 'Profil UMKM berhasil diupdate',
+      };
+    } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+        });
+        response.code(error.statusCode);
+        return response;
+      }
+
+      // Server ERROR!
+      const response = h.response({
+        status: 'error',
+        message: 'Maaf, terjadi kegagalan pada server kami.',
+      });
+      response.code(500);
+      console.error(error);
+      return response;
+    }
+  }
+
+  async deleteUmkmByIdHandler(request, h) {
+    try {
+      const { id } = request.params;
+
+      await this._service.deleteUmkmById(id);
+
+      return {
+        status: 'success',
+        message: 'Umkm berhasil dihapus',
       };
     } catch (error) {
       if (error instanceof ClientError) {

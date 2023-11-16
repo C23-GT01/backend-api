@@ -65,7 +65,6 @@ class ProductsHandler {
 
   async getAllProductsHandler() {
     const products = await this._service.getProducts();
-    console.log(products);
     return {
       status: 'success',
       data: {
@@ -113,12 +112,12 @@ class ProductsHandler {
     }
   }
 
-  putProductByIdHandler(request, h) {
+  async putProductByIdHandler(request, h) {
     this._validator.validateProductPayload(request.payload);
     try {
       const { id } = request.params;
 
-      this._service.editProductById(id, request.payload);
+      await this._service.editProductById(id, request.payload);
 
       return {
         status: 'success',
@@ -145,11 +144,11 @@ class ProductsHandler {
     }
   }
 
-  deleteProductByIdHandler(request, h) {
+  async deleteProductByIdHandler(request, h) {
     try {
       const { id } = request.params;
 
-      this._service.deleteProductById(id);
+      await this._service.deleteProductById(id);
 
       return {
         status: 'success',

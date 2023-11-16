@@ -19,8 +19,8 @@ class ProductService {
     const query = {
       text: 'INSERT INTO products VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id',
       values: [id,
-        name,
         image,
+        name,
         price,
         description,
         umkm,
@@ -66,7 +66,7 @@ class ProductService {
     //   values: [`%${name.toLowerCase()}%`, `%${category.toLowerCase()}%`],
     // };
 
-    const result = await this._pool.query('SELECT * FROM notes');
+    const result = await this._pool.query('SELECT * FROM products');
 
     return result.rows.map(mapDBToModel);
   }
@@ -91,10 +91,10 @@ class ProductService {
   }) {
     const updatedAt = new Date().toISOString();
     const query = {
-      text: 'UPDATE products SET name = $1, image = $2, price = $3, description = $4, umkm = $5, resources= $6, production = $7, impact = $8, contribution = $9, category = $10, WHERE id = $11 RETURNING id',
+      text: 'UPDATE products SET name = $1, image = $2, price = $3, description = $4, umkm = $5, resources= $6, production = $7, impact = $8, contribution = $9, category = $10, updated_at = $12 WHERE id = $11 RETURNING id',
       values: [
         name, image, price, description, umkm, resources,
-        production, impact, contribution, category, id,
+        production, impact, contribution, category, id, updatedAt,
       ],
     };
 
@@ -112,7 +112,6 @@ class ProductService {
     };
 
     const result = await this._pool.query(query);
-
     if (!result.rows.length) {
       throw new NotFoundError('Product gagal dihapus. Id tidak ditemukan');
     }

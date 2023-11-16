@@ -1,9 +1,11 @@
+require('dotenv').config();
+
 const Hapi = require('@hapi/hapi');
 
 const products = require('./api/products');
-const ProductsService = require('./services/inMemory/ProductsService');
+const ProductsService = require('./services/postgres/ProductsService');
 const umkms = require('./api/umkm');
-const UmkmsService = require('./services/inMemory/UmkmService');
+const UmkmsService = require('./services/postgres/UmkmService');
 
 // validator
 const ProductsValidator = require('./validator/products');
@@ -14,8 +16,8 @@ const init = async () => {
   const umkmsService = new UmkmsService();
 
   const server = Hapi.server({
-    port: 5000,
-    host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0',
+    port: process.env.PORT,
+    host: process.env.HOST,
     routes: {
       cors: {
         origin: ['*'],

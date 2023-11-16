@@ -1,8 +1,8 @@
 const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
-// const InvariantError = require('../../exceptions/InvariantError');
-// const NotFoundError = require('../../exceptions/NotFoundError');
-// const { mapDBToModel } = require('../../utils');
+const InvariantError = require('../../exceptions/InvariantError');
+const NotFoundError = require('../../exceptions/NotFoundError');
+const { mapDBToModel } = require('../../utils');
 
 class ProductService {
   constructor() {
@@ -10,17 +10,17 @@ class ProductService {
   }
 
   async addProduct({
-    name, price, image, description, umkm, resources, production, impact, contribution,
+    image, name, price, description, resources, production, impact, contribution, umkm, category,
   }) {
     const id = `product-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const updateAt = createAt;
 
     const query = {
-      text: 'INSERT INTO products VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id',
+      text: 'INSERT INTO products VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id',
       values: [id,
-        name,
         image,
+        name,
         price,
         description,
         umkm,
@@ -28,8 +28,10 @@ class ProductService {
         production,
         impact,
         contribution,
+        category,
         createAt,
-        updateAt,],
+        updateAt,
+      ],
     };
 
     const result = await this._pool.query(query);
@@ -41,31 +43,10 @@ class ProductService {
     return result.rows[0].id;
   }
 
-  async getProducts({ id, name, image, price }) {
-    if (id === undefined) {
-      id = '';
-    }
-    
-    if (name === undefined) {
-      name = '';
-    }
+  async getProducts() {
+    const result = await this._pool.query('SELECT * FROM products');
 
-    if (image === undefined) {
-      image = '';
-    }
-
-    if (price === undefined) {
-      price = '';
-    }
-
-    const query = {
-      text: 'SELECT id, name, image, price FROM products WHERE lower(name) LIKE $1 AND lower(category) LIKE $2',
-      values: [`%${name.toLowerCase()}%`, `%${category.toLowerCase()}%`],
-    };
-
-    const result = await this._pool.query(query);
-
-    return result.rows;
+    return result.rows.map(mapDBToModel);
   }
 
   async getProductById(id) {
@@ -84,16 +65,20 @@ class ProductService {
   }
 
   async editProductById(id, {
-    id, name, image, price, description, umkm, resources, production, impact, contribution,
+    image, name, price, description, resources, production, impact, contribution, umkm, category,
   }) {
+    const updatedAt = new Date().toISOString();
     const query = {
-      text: 'UPDATE products SET name = $1, price = $2, category = $3, description = $4, stock = $5 WHERE id = $6 RETURNING id',
-      values: [name, image, price, description, umkm, resources, production, impact, contribution],
+      text: 'UPDATE products SET name = $1, image = $2, price = $3, description = $4, umkm = $5, resources= $6, production = $7, impact = $8, contribution = $9, category = $10, updated_at = $12 WHERE id = $11 RETURNING id',
+      values: [
+        name, image, price, description, umkm, resources,
+        production, impact, contribution, category, id, updatedAt,
+      ],
     };
 
     const result = await this._pool.query(query);
 
-    if (!result.rowCount) {
+    if (!result.rows.length) {
       throw new NotFoundError('Gagal memperbarui Product. Id tidak ditemukan');
     }
   }
@@ -106,7 +91,7 @@ class ProductService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rowCount) {
+    if (!result.rows.length) {
       throw new NotFoundError('Product gagal dihapus. Id tidak ditemukan');
     }
   }

@@ -6,6 +6,11 @@ const routes = (handler) => [
   },
   {
     method: 'GET',
+    path: '/umkm',
+    handler: (request, h) => handler.getAllUmkmHandler(request, h),
+  },
+  {
+    method: 'GET',
     path: '/umkm/{id}',
     handler: (request, h) => handler.getDetailUMKMHandler(request, h),
   },
@@ -13,6 +18,11 @@ const routes = (handler) => [
     method: 'PUT',
     path: '/umkm/{id}',
     handler: (request, h) => handler.putUMKMHandler(request, h),
+  },
+  {
+    method: 'DELETE',
+    path: '/umkm/{id}',
+    handler: (request, h) => handler.deleteUmkmByIdHandler(request, h),
   },
 ];
 

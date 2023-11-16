@@ -1,0 +1,37 @@
+{
+  "image": "http://a.jpg",
+  "name": "PT Sambal",
+  "description": "lorem100",
+  "location": "jshak hdak",
+  "history": {
+    "image": "http://a.jpg",
+    "text": "sambal kuning"
+  },
+  "impact": [
+    {
+      "name": "batu",
+      "image": "https://image.com/",
+      "deskripsi": "lorem 100"
+    },
+    {
+      "name": "batu",
+      "image": "https://image.com/",
+      "deskripsi": "lorem 100"
+    },
+    {
+      "name": "batu",
+      "image": "https://image.com/",
+      "deskripsi": "lorem 100"
+    }
+  ],
+  "contact": [
+    {
+      "name": "whatsapp",
+      "deskripsi": "08123456789"
+    },
+    {
+      "name": "email",
+      "deskripsi": "sambal@gmail.com"
+    }
+  ]
+}

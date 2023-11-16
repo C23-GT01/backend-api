@@ -1,5 +1,6 @@
 const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError.js');
+const NotFoundError = require('../../exceptions/NotFoundError');
 
 class ProductsService {
   constructor() {
@@ -47,7 +48,7 @@ class ProductsService {
   getProductById(id) {
     const product = this._products.filter((n) => n.id === id)[0];
     if (!product) {
-      throw new Error('Produk tidak ditemukan');
+      throw new NotFoundError('Produk tidak ditemukan');
     }
     return product;
   }
@@ -58,7 +59,7 @@ class ProductsService {
     const index = this._products.findIndex((product) => product.id === id);
 
     if (index === -1) {
-      throw new Error('Gagal memperbarui Produk. Id tidak ditemukan');
+      throw new NotFoundError('Gagal memperbarui Produk. Id tidak ditemukan');
     }
 
     const updatedAt = new Date().toISOString();
@@ -83,7 +84,7 @@ class ProductsService {
     const index = this._products.findIndex((product) => product.id === id);
 
     if (index === -1) {
-      throw new Error('Produk gagal dihapus. Id tidak ditemukan');
+      throw new NotFoundError('Produk gagal dihapus. Id tidak ditemukan');
     }
 
     this._products.splice(index, 1);

@@ -1,6 +1,7 @@
 class ProductsHandler {
-  constructor(service) {
+  constructor(service, validator) {
     this._service = service;
+    this._validator = validator;
 
     this.postProductHandler = this.postProductHandler.bind(this);
     this.getAllProductsHandler = this.getAllProductsHandler.bind(this);
@@ -11,6 +12,7 @@ class ProductsHandler {
 
   postProductHandler(request, h) {
     try {
+      this._validator.validateProductPayload(request.payload);
       const {
         image, name, price, description, resources,
         production, impact, contribution, umkm, category,
@@ -88,6 +90,7 @@ class ProductsHandler {
   }
 
   putProductByIdHandler(request, h) {
+    this._validator.validateProductPayload(request.payload);
     try {
       const { id } = request.params;
 

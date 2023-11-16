@@ -1,3 +1,5 @@
+const ClientError = require('../../exceptions/ClientError');
+
 class UMKMHandler {
   constructor(service, validator) {
     this._service = service;
@@ -21,17 +23,29 @@ class UMKMHandler {
         },
       };
     } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+        });
+        response.code(error.statusCode);
+        return response;
+      }
+
+      // Server ERROR!
       const response = h.response({
-        status: 'fail',
-        message: error.message,
+        status: 'error',
+        message: 'Maaf, terjadi kegagalan pada server kami.',
       });
-      response.code(404);
+      response.code(500);
+      console.error(error);
       return response;
     }
   }
 
   postUMKMHandler(request, h) {
     try {
+      this._validator.validateUmkmPayload(request.payload);
       const {
         image, name, description, location,
         history, impact, contact,
@@ -57,16 +71,28 @@ class UMKMHandler {
       response.code(201);
       return response;
     } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+        });
+        response.code(error.statusCode);
+        return response;
+      }
+
+      // Server ERROR!
       const response = h.response({
-        status: 'fail',
-        message: error.message,
+        status: 'error',
+        message: 'Maaf, terjadi kegagalan pada server kami.',
       });
-      response.code(400);
+      response.code(500);
+      console.error(error);
       return response;
     }
   }
 
   putUMKMHandler(request, h) {
+    this._validator.validateUmkmPayload(request.payload);
     try {
       const { id } = request.params;
 
@@ -77,11 +103,22 @@ class UMKMHandler {
         message: 'Profil UMKM berhasil diupdate',
       };
     } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+        });
+        response.code(error.statusCode);
+        return response;
+      }
+
+      // Server ERROR!
       const response = h.response({
-        status: 'fail',
-        message: error.message,
+        status: 'error',
+        message: 'Maaf, terjadi kegagalan pada server kami.',
       });
-      response.code(404);
+      response.code(500);
+      console.error(error);
       return response;
     }
   }

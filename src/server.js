@@ -9,6 +9,11 @@ const ProductsService = require('./services/postgres/ProductsService');
 const umkms = require('./api/umkm');
 const UmkmsService = require('./services/postgres/UmkmService');
 
+// users
+const users = require('./api/users');
+const UsersService = require('./services/postgres/UsersService');
+const UsersValidator = require('./validator/users');
+
 // uploads
 const uploads = require('./api/uploads');
 const StorageService = require('./services/storage/StorageService');
@@ -21,6 +26,7 @@ const UmkmsValidator = require('./validator/umkm');
 const init = async () => {
   const productsService = new ProductsService();
   const umkmsService = new UmkmsService();
+  const usersService = new UsersService();
   const storageService = new StorageService(path.resolve(__dirname, 'api/uploads/file/images'));
 
   const server = Hapi.server({
@@ -54,6 +60,13 @@ const init = async () => {
         options: {
           service: umkmsService,
           validator: UmkmsValidator,
+        },
+      },
+      {
+        plugin: users,
+        options: {
+          service: usersService,
+          validator: UsersValidator,
         },
       },
       {

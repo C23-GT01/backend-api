@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
 const path = require('path');
+const Inert = require('@hapi/inert');
 
 const products = require('./api/products');
 const ProductsService = require('./services/postgres/ProductsService');

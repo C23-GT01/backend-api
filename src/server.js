@@ -14,6 +14,12 @@ const users = require('./api/users');
 const UsersService = require('./services/postgres/UsersService');
 const UsersValidator = require('./validator/users');
 
+// authentications
+const authentications = require('./api/authentications');
+const AuthenticationsService = require('./services/postgres/AuthenticationsService');
+const TokenManager = require('./tokenize/TokenManager');
+const AuthenticationsValidator = require('./validator/authentications');
+
 // uploads
 const uploads = require('./api/uploads');
 const StorageService = require('./services/storage/StorageService');
@@ -27,6 +33,7 @@ const init = async () => {
   const productsService = new ProductsService();
   const umkmsService = new UmkmsService();
   const usersService = new UsersService();
+  const authenticationsService = new AuthenticationsService();
   const storageService = new StorageService(path.resolve(__dirname, 'api/uploads/file/images'));
 
   const server = Hapi.server({
@@ -67,6 +74,15 @@ const init = async () => {
         options: {
           service: usersService,
           validator: UsersValidator,
+        },
+      },
+      {
+        plugin: authentications,
+        options: {
+          authenticationsService,
+          usersService,
+          tokenManager: TokenManager,
+          validator: AuthenticationsValidator,
         },
       },
       {

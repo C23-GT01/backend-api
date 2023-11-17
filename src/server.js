@@ -33,6 +33,13 @@ const init = async () => {
     },
   });
 
+  // registrasi plugin eksternal
+  await server.register([
+    {
+      plugin: Inert,
+    },
+  ]);
+
   await server.register(
     [
       {

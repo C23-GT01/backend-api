@@ -3,6 +3,9 @@ const routes = (handler) => [
     method: 'POST',
     path: '/products',
     handler: handler.postProductHandler,
+    options: {
+      auth: 'trackmate_jwt',
+    },
   },
   {
     method: 'GET',
@@ -18,11 +21,17 @@ const routes = (handler) => [
     method: 'PUT',
     path: '/products/{id}',
     handler: handler.putProductByIdHandler,
+    options: {
+      auth: 'trackmate_jwt',
+    },
   },
   {
     method: 'DELETE',
     path: '/products/{id}',
     handler: handler.deleteProductByIdHandler,
+    options: {
+      auth: 'trackmate_jwt',
+    },
   },
 ];
 

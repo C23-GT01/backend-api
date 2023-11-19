@@ -17,8 +17,10 @@ class ProductsHandler {
       this._validator.validateProductPayload(request.payload);
       const {
         image, name, price, description, resources,
-        production, impact, contribution, umkm, category,
+        production, impact, contribution, category,
       } = request.payload;
+
+      const { id: owner } = request.auth.credentials;
 
       const productId = await this._service.addProduct({
         image,
@@ -29,8 +31,8 @@ class ProductsHandler {
         production,
         impact,
         contribution,
-        umkm,
         category,
+        owner,
       });
 
       const response = h.response({
@@ -116,6 +118,9 @@ class ProductsHandler {
     this._validator.validateProductPayload(request.payload);
     try {
       const { id } = request.params;
+      const { id: credentialId } = request.auth.credentials;
+
+      await this._service.verifyProductOwner(id, credentialId);
 
       await this._service.editProductById(id, request.payload);
 
@@ -148,6 +153,10 @@ class ProductsHandler {
     try {
       const { id } = request.params;
 
+      const { id: credentialId } = request.auth.credentials;
+
+      await this._service.verifyProductOwner(id, credentialId);
+
       await this._service.deleteProductById(id);
 
       return {
@@ -167,7 +176,7 @@ class ProductsHandler {
       // Server ERROR!
       const response = h.response({
         status: 'error',
-        message: 'Maaf, terjadi kegagalan pada server kami.',
+        message: 'Maaf, terjadi kegagalan pada server kami...',
       });
       response.code(500);
       console.error(error);

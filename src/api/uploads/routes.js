@@ -12,6 +12,7 @@ const routes = (handler) => [
         multipart: true,
         output: 'stream',
       },
+      auth: 'trackmate_jwt',
     },
   },
   {

@@ -63,6 +63,9 @@ class UMKMHandler {
         image, name, description, location,
         history, impact, contact,
       } = request.payload;
+
+      const { id: owner } = request.auth.credentials;
+
       const umkmId = await this._service.addUmkm({
         image,
         name,
@@ -71,8 +74,8 @@ class UMKMHandler {
         history,
         impact,
         contact,
+        owner,
       });
-      console.log(umkmId);
 
       const response = h.response({
         status: 'success',
@@ -109,6 +112,10 @@ class UMKMHandler {
     try {
       const { id } = request.params;
 
+      const { id: credentialId } = request.auth.credentials;
+
+      await this._service.verifyUmkmOwner(id, credentialId);
+
       await this._service.editUmkmById(id, request.payload);
 
       return {
@@ -139,6 +146,10 @@ class UMKMHandler {
   async deleteUmkmByIdHandler(request, h) {
     try {
       const { id } = request.params;
+
+      const { id: credentialId } = request.auth.credentials;
+
+      await this._service.verifyUmkmOwner(id, credentialId);
 
       await this._service.deleteUmkmById(id);
 

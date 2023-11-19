@@ -21,7 +21,7 @@ exports.up = (pgm) => {
       notNull: true,
     },
     umkm: {
-      type: 'string',
+      type: 'varchar(50)',
       notNull: true,
     },
     description: {
@@ -29,24 +29,28 @@ exports.up = (pgm) => {
       allowNull: true,
     },
     resources: {
-      type: 'text[]',
+      type: 'jsonb[]',
       allowNull: true,
     },
     production: {
-      type: 'text[]',
+      type: 'jsonb[]',
       allowNull: true,
     },
     impact: {
-      type: 'text[]',
+      type: 'jsonb[]',
       allowNull: true,
     },
     contribution: {
-      type: 'text[]',
+      type: 'jsonb[]',
       allowNull: true,
     },
     category: {
       type: 'integer',
       allowNull: true,
+    },
+    owner: {
+      type: 'varchar(50)',
+      notNull: true,
     },
     created_at: {
       type: 'TEXT',

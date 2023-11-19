@@ -2,6 +2,7 @@ const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
+const AuthorizationError = require('../../exceptions/AuthorizationError');
 const { mapUmkmToModel } = require('../../utils');
 
 class UmkmService {
@@ -10,20 +11,24 @@ class UmkmService {
   }
 
   async addUmkm({
-    image, name, description, location, history, impact, contact,
+    image, name, description, location, history, impact, contact, owner,
   }) {
     const id = `Umkm-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const updateAt = createAt;
-
+    console.log(owner);
     const query = {
-      text: 'INSERT INTO umkm VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id',
-      values: [id,
+      text: 'INSERT INTO umkm VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id',
+      values: [
+        id,
         image,
         name,
         description,
         location,
-        history, impact, contact,
+        history,
+        impact,
+        contact,
+        owner,
         createAt,
         updateAt,
       ],
@@ -84,6 +89,25 @@ class UmkmService {
 
     if (!result.rowCount) {
       throw new NotFoundError('Umkm gagal dihapus. Id tidak ditemukan');
+    }
+  }
+
+  async verifyUmkmOwner(id, owner) {
+    const query = {
+      text: 'SELECT * FROM umkm WHERE id = $1',
+      values: [id],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows.length) {
+      throw new NotFoundError('Resource yang Anda minta tidak ditemukan');
+    }
+
+    const note = result.rows[0];
+
+    if (note.owner !== owner) {
+      throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
     }
   }
 }

@@ -37,6 +37,7 @@ const mapUmkmToModel = ({
   history,
   impact,
   contact,
+  owner,
   created_at,
   updated_at,
 }) => ({
@@ -48,6 +49,7 @@ const mapUmkmToModel = ({
   history,
   impact,
   contact,
+  owner,
   createdAt: created_at,
   updatedAt: updated_at,
 });

@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
 const path = require('path');
+const Jwt = require('@hapi/jwt');
 const Inert = require('@hapi/inert');
 
 const products = require('./api/products');
@@ -49,9 +50,28 @@ const init = async () => {
   // registrasi plugin eksternal
   await server.register([
     {
+      plugin: Jwt,
+    },
+    {
       plugin: Inert,
     },
   ]);
+
+  server.auth.strategy('trackmate_jwt', 'jwt', {
+    keys: process.env.ACCESS_TOKEN_KEY,
+    verify: {
+      aud: false,
+      iss: false,
+      sub: false,
+      maxAgeSec: process.env.ACCESS_TOKEN_AGE,
+    },
+    validate: (artifacts) => ({
+      isValid: true,
+      credentials: {
+        id: artifacts.decoded.payload.id,
+      },
+    }),
+  });
 
   await server.register(
     [

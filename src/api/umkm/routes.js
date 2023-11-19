@@ -3,6 +3,9 @@ const routes = (handler) => [
     method: 'POST',
     path: '/umkm',
     handler: (request, h) => handler.postUMKMHandler(request, h),
+    options: {
+      auth: 'trackmate_jwt',
+    },
   },
   {
     method: 'GET',
@@ -18,11 +21,17 @@ const routes = (handler) => [
     method: 'PUT',
     path: '/umkm/{id}',
     handler: (request, h) => handler.putUMKMHandler(request, h),
+    options: {
+      auth: 'trackmate_jwt',
+    },
   },
   {
     method: 'DELETE',
     path: '/umkm/{id}',
     handler: (request, h) => handler.deleteUmkmByIdHandler(request, h),
+    options: {
+      auth: 'trackmate_jwt',
+    },
   },
 ];
 

@@ -73,7 +73,17 @@ class ProductService {
       throw new NotFoundError('Product tidak ditemukan');
     }
 
-    return mapDBToModel(result.rows[0]);
+    const UmkmId = result.rows[0].umkm;
+    // return mapDBToModel(result.rows[0]);
+
+    const query2 = {
+      text: 'SELECT id, logo, name, location, employe FROM umkm WHERE id = $1',
+      values: [UmkmId],
+    };
+
+    const resultWithUmkm = await this._pool.query(query2);
+
+    return mapDBToModel(result.rows[0], resultWithUmkm.rows[0]);
   }
 
   async editProductById(id, {

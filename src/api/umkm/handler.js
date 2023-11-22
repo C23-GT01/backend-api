@@ -14,7 +14,6 @@ class UMKMHandler {
 
   async getAllUmkmHandler() {
     const umkm = await this._service.getUmkm();
-    console.log(umkm);
     return {
       status: 'success',
       data: {
@@ -60,20 +59,22 @@ class UMKMHandler {
     try {
       this._validator.validateUmkmPayload(request.payload);
       const {
-        image, name, description, location,
-        history, impact, contact,
+        image, logo, name, description, location,
+        history, impact, contact, employe,
       } = request.payload;
 
       const { id: owner } = request.auth.credentials;
 
       const umkmId = await this._service.addUmkm({
         image,
+        logo,
         name,
         description,
         location,
         history,
         impact,
         contact,
+        employe,
         owner,
       });
 

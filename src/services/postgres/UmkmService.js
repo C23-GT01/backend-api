@@ -11,23 +11,24 @@ class UmkmService {
   }
 
   async addUmkm({
-    image, name, description, location, history, impact, contact, owner,
+    image, logo, name, description, location, history, impact, contact, employe, owner,
   }) {
     const id = `Umkm-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const updateAt = createAt;
-    console.log(owner);
     const query = {
-      text: 'INSERT INTO umkm VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id',
+      text: 'INSERT INTO umkm VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id',
       values: [
         id,
         image,
+        logo,
         name,
         description,
         location,
         history,
         impact,
         contact,
+        employe,
         owner,
         createAt,
         updateAt,
@@ -65,11 +66,11 @@ class UmkmService {
   }
 
   async editUmkmById(id, {
-    image, name, description, location, history, impact, contact,
+    image, logo, name, description, location, history, impact, contact, employe,
   }) {
     const query = {
-      text: 'UPDATE umkm SET name = $2, image = $1, description = $3, location = $4, history = $5, impact = $6, contact = $7 WHERE id = $8 RETURNING id',
-      values: [image, name, description, location, history, impact, contact, id],
+      text: 'UPDATE umkm SET name = $2, image = $1, logo = $9, description = $3, location = $4, history = $5, impact = $6, contact = $7, employe = $10 WHERE id = $8 RETURNING id',
+      values: [image, name, description, location, history, impact, contact, id, logo, employe],
     };
 
     const result = await this._pool.query(query);

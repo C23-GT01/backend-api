@@ -17,7 +17,6 @@ class ProductService {
     const id = `product-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const updateAt = createAt;
-    console.log(`SELECT id FROM umkm WHERE owner = ${owner}`);
 
     const queryGetUmkmId = {
       text: 'SELECT id FROM umkm WHERE owner = $1',

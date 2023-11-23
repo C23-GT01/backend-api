@@ -15,6 +15,7 @@ class UMKMHandler {
   async getAllUmkmHandler() {
     const umkm = await this._service.getUmkm();
     return {
+      error: false,
       status: 'success',
       data: {
         umkm,
@@ -29,6 +30,7 @@ class UMKMHandler {
       const umkm = await this._service.getUmkmById(id);
 
       return {
+        error: false,
         status: 'success',
         data: {
           umkm,
@@ -79,6 +81,7 @@ class UMKMHandler {
       });
 
       const response = h.response({
+        error: false,
         status: 'success',
         message: 'UMKM berhasil didaftarkan',
         data: {
@@ -120,6 +123,7 @@ class UMKMHandler {
       await this._service.editUmkmById(id, request.payload);
 
       return {
+        error: false,
         status: 'success',
         message: 'Profil UMKM berhasil diupdate',
       };
@@ -155,6 +159,7 @@ class UMKMHandler {
       await this._service.deleteUmkmById(id);
 
       return {
+        error: false,
         status: 'success',
         message: 'Umkm berhasil dihapus',
       };

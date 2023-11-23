@@ -36,6 +36,7 @@ class ProductsHandler {
       });
 
       const response = h.response({
+        error: false,
         status: 'success',
         message: 'Produk berhasil ditambahkan',
         data: {
@@ -68,6 +69,7 @@ class ProductsHandler {
   async getAllProductsHandler() {
     const products = await this._service.getProducts();
     return {
+      error: false,
       status: 'success',
       data: {
         products: products.map((product) => ({
@@ -88,6 +90,7 @@ class ProductsHandler {
       const product = await this._service.getProductById(id);
 
       return {
+        error: false,
         status: 'success',
         data: {
           product,
@@ -125,6 +128,7 @@ class ProductsHandler {
       await this._service.editProductById(id, request.payload);
 
       return {
+        error: false,
         status: 'success',
         message: 'Produk berhasil diperbarui',
       };
@@ -160,6 +164,7 @@ class ProductsHandler {
       await this._service.deleteProductById(id);
 
       return {
+        error: false,
         status: 'success',
         message: 'Produk berhasil dihapus',
       };

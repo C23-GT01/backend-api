@@ -8,6 +8,7 @@ class ProductsHandler {
     this.postProductHandler = this.postProductHandler.bind(this);
     this.getAllProductsHandler = this.getAllProductsHandler.bind(this);
     this.getProductByIdHandler = this.getProductByIdHandler.bind(this);
+    this.getProductByIdUmkmHandler = this.getProductByIdUmkmHandler.bind(this);
     this.putProductByIdHandler = this.putProductByIdHandler.bind(this);
     this.deleteProductByIdHandler = this.deleteProductByIdHandler.bind(this);
   }
@@ -71,6 +72,8 @@ class ProductsHandler {
     return {
       error: false,
       status: 'success',
+      message: 'Menampilkan semua produk',
+      count: products.length,
       data: {
         products: products.map((product) => ({
           id: product.id,
@@ -94,6 +97,48 @@ class ProductsHandler {
         status: 'success',
         data: {
           product,
+        },
+      };
+    } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+        });
+        response.code(error.statusCode);
+        return response;
+      }
+
+      // Server ERROR!
+      const response = h.response({
+        status: 'error',
+        message: 'Maaf, terjadi kegagalan pada server kami.',
+      });
+      response.code(500);
+      console.error(error);
+      return response;
+    }
+  }
+
+  async getProductByIdUmkmHandler(request, h) {
+    try {
+      const { id } = request.params;
+
+      const products = await this._service.getProductByIdUmkm(id);
+
+      return {
+        error: false,
+        status: 'success',
+        message: 'Menampilkan semua produk dari sebuah umkm',
+        count: products.length,
+        data: {
+          products: products.map((product) => ({
+            id: product.id,
+            name: product.name,
+            image: product.image,
+            price: product.price,
+            category: product.category,
+          })),
         },
       };
     } catch (error) {

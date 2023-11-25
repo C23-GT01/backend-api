@@ -16,6 +16,8 @@ class UMKMHandler {
     const umkm = await this._service.getUmkm();
     return {
       error: false,
+      message: 'Menampilkan semua UMKM',
+      count: umkm.length,
       status: 'success',
       data: {
         umkm,

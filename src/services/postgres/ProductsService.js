@@ -86,6 +86,17 @@ class ProductService {
     return mapDBToModel(result.rows[0], resultWithUmkm.rows[0]);
   }
 
+  async getProductByIdUmkm(id) {
+    const query = {
+      text: 'SELECT * FROM products WHERE umkm = $1',
+      values: [id],
+    };
+
+    const result = await this._pool.query(query);
+
+    return result.rows.map(mapDBToModel);
+  }
+
   async editProductById(id, {
     image, name, price, description, resources, production, impact, contribution, category,
   }) {

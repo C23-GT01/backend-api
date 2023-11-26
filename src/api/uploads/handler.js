@@ -16,6 +16,7 @@ class UploadsHandler {
       const filename = await this._service.writeFile(data, data.hapi);
 
       const response = h.response({
+        error: false,
         status: 'success',
         data: {
           fileLocation: `http://${process.env.HOST}:${process.env.PORT}/upload/images/${filename}`,

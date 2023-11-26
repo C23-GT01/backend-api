@@ -8,11 +8,10 @@ const mapDBToModel = ({
   production,
   impact,
   contribution,
-  umkm,
   category,
   created_at,
   updated_at,
-}) => ({
+}, umkm) => ({
   id,
   name,
   image,

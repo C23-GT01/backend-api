@@ -18,6 +18,11 @@ const routes = (handler) => [
     handler: handler.getProductByIdHandler,
   },
   {
+    method: 'GET',
+    path: '/products/umkm/{id}',
+    handler: handler.getProductByIdUmkmHandler,
+  },
+  {
     method: 'PUT',
     path: '/products/{id}',
     handler: handler.putProductByIdHandler,

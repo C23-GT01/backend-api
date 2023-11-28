@@ -4,14 +4,13 @@ const mapDBToModel = ({
   image,
   price,
   description,
-  resources,
   production,
   impact,
   contribution,
   category,
   created_at,
   updated_at,
-}, umkm) => ({
+}, umkm, resources) => ({
   id,
   name,
   image,
@@ -23,6 +22,26 @@ const mapDBToModel = ({
   contribution,
   umkm,
   category,
+  createdAt: created_at,
+  updatedAt: updated_at,
+});
+
+const mapResourceToModel = ({
+  id,
+  name,
+  image,
+  location,
+  umkm,
+  description,
+  created_at,
+  updated_at,
+}) => ({
+  id,
+  name,
+  image,
+  location,
+  umkm,
+  description,
   createdAt: created_at,
   updatedAt: updated_at,
 });
@@ -53,4 +72,4 @@ const mapUmkmToModel = ({
   updatedAt: updated_at,
 });
 
-module.exports = { mapDBToModel, mapUmkmToModel };
+module.exports = { mapDBToModel, mapUmkmToModel, mapResourceToModel };

@@ -5,10 +5,17 @@ const path = require('path');
 const Jwt = require('@hapi/jwt');
 const Inert = require('@hapi/inert');
 
+// products
 const products = require('./api/products');
 const ProductsService = require('./services/postgres/ProductsService');
+
+// umkm
 const umkms = require('./api/umkm');
 const UmkmsService = require('./services/postgres/UmkmService');
+
+// resources
+const resources = require('./api/resources');
+const ResourcesService = require('./services/postgres/ResourcesService');
 
 // users
 const users = require('./api/users');
@@ -28,10 +35,12 @@ const UploadsValidator = require('./validator/uploads');
 
 // validator
 const ProductsValidator = require('./validator/products');
+const ResourcesValidator = require('./validator/resources');
 const UmkmsValidator = require('./validator/umkm');
 
 const init = async () => {
   const productsService = new ProductsService();
+  const resourcesService = new ResourcesService();
   const umkmsService = new UmkmsService();
   const usersService = new UsersService();
   const authenticationsService = new AuthenticationsService();
@@ -80,6 +89,13 @@ const init = async () => {
         options: {
           service: productsService,
           validator: ProductsValidator,
+        },
+      },
+      {
+        plugin: resources,
+        options: {
+          service: resourcesService,
+          validator: ResourcesValidator,
         },
       },
       {

@@ -26,10 +26,10 @@ class ProductService {
     const getUmkm = await this._pool.query(queryGetUmkmId);
 
     const umkm = getUmkm.rows[0].id;
-
     const query = {
       text: 'INSERT INTO products VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING id',
-      values: [id,
+      values: [
+        id,
         image,
         name,
         price,
@@ -83,7 +83,17 @@ class ProductService {
 
     const resultWithUmkm = await this._pool.query(query2);
 
-    return mapDBToModel(result.rows[0], resultWithUmkm.rows[0]);
+    const resourceIds = result.rows[0].resources;
+
+    const resources = [];
+    // eslint-disable-next-line no-restricted-syntax
+    for (const resourceId of resourceIds) {
+      // eslint-disable-next-line no-await-in-loop
+      const resourceDetail = await this.getResourceById(resourceId);
+      resources.push(resourceDetail);
+    }
+
+    return mapDBToModel(result.rows[0], resultWithUmkm.rows[0], resources);
   }
 
   async getProductByIdUmkm(id) {
@@ -146,6 +156,17 @@ class ProductService {
     if (note.owner !== owner) {
       throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
     }
+  }
+
+  async getResourceById(resourceId) {
+    const queryResource = {
+      text: 'SELECT * FROM resources WHERE id = $1',
+      values: [resourceId],
+    };
+
+    const resourceResult = await this._pool.query(queryResource);
+
+    return resourceResult.rows[0];
   }
 }
 

@@ -3,49 +3,26 @@
 exports.shorthands = undefined;
 
 exports.up = (pgm) => {
-  pgm.createTable('products', {
+  pgm.createTable('resources', {
     id: {
       type: 'varchar(50)',
       primaryKey: true,
-    },
-    image: {
-      type: 'TEXT[]',
-      notNull: true,
     },
     name: {
       type: 'text',
       notNull: true,
     },
-    price: {
-      type: 'integer',
+    image: {
+      type: 'text',
       notNull: true,
     },
+    location: { type: 'jsonb', notNull: true },
     umkm: {
       type: 'varchar(50)',
-      notNull: true,
+      allowNull: true,
     },
     description: {
       type: 'text',
-      allowNull: true,
-    },
-    resources: {
-      type: 'TEXT[]',
-      allowNull: true,
-    },
-    production: {
-      type: 'jsonb[]',
-      allowNull: true,
-    },
-    impact: {
-      type: 'jsonb[]',
-      allowNull: true,
-    },
-    contribution: {
-      type: 'integer[]',
-      allowNull: true,
-    },
-    category: {
-      type: 'integer',
       allowNull: true,
     },
     owner: {
@@ -64,5 +41,5 @@ exports.up = (pgm) => {
 };
 
 exports.down = (pgm) => {
-  pgm.dropTable('products');
+  pgm.dropTable('resources');
 };

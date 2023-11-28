@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const ProductPayloadSchema = Joi.object({
-  image: Joi.string().required(),
+  image: Joi.array().required(),
   name: Joi.string().required(),
   price: Joi.number().required(),
   description: Joi.string().allow(null),

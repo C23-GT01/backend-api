@@ -29,7 +29,7 @@ exports.up = (pgm) => {
       allowNull: true,
     },
     resources: {
-      type: 'jsonb[]',
+      type: 'TEXT[]',
       allowNull: true,
     },
     production: {
@@ -41,7 +41,7 @@ exports.up = (pgm) => {
       allowNull: true,
     },
     contribution: {
-      type: 'jsonb[]',
+      type: 'integer[]',
       allowNull: true,
     },
     category: {

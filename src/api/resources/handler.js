@@ -1,93 +1,41 @@
 const ClientError = require('../../exceptions/ClientError');
 
-class UMKMHandler {
+class ResourcesHandler {
   constructor(service, validator) {
     this._service = service;
     this._validator = validator;
 
-    this.getDetailUMKMHandler = this.getDetailUMKMHandler.bind(this);
-    this.getAllUmkmHandler = this.getAllUmkmHandler.bind(this);
-    this.postUMKMHandler = this.postUMKMHandler.bind(this);
-    this.putUMKMHandler = this.putUMKMHandler.bind(this);
-    this.deleteUmkmByIdHandler = this.deleteUmkmByIdHandler.bind(this);
+    this.postResourceHandler = this.postResourceHandler.bind(this);
+    this.getAllResourcesHandler = this.getAllResourcesHandler.bind(this);
+    this.getResourceByIdHandler = this.getResourceByIdHandler.bind(this);
+    this.putResourceByIdHandler = this.putResourceByIdHandler.bind(this);
+    this.deleteResourceByIdHandler = this.deleteResourceByIdHandler.bind(this);
   }
 
-  async getAllUmkmHandler() {
-    const umkm = await this._service.getUmkm();
-    return {
-      error: false,
-      message: 'Menampilkan semua UMKM',
-      count: umkm.length,
-      status: 'success',
-      data: {
-        umkm,
-      },
-    };
-  }
-
-  async getDetailUMKMHandler(request, h) {
+  async postResourceHandler(request, h) {
     try {
-      const { id } = request.params;
-
-      const umkm = await this._service.getUmkmById(id);
-
-      return {
-        error: false,
-        status: 'success',
-        data: {
-          umkm,
-        },
-      };
-    } catch (error) {
-      if (error instanceof ClientError) {
-        const response = h.response({
-          status: 'fail',
-          message: error.message,
-        });
-        response.code(error.statusCode);
-        return response;
-      }
-
-      // Server ERROR!
-      const response = h.response({
-        status: 'error',
-        message: 'Maaf, terjadi kegagalan pada server kami.',
-      });
-      response.code(500);
-      console.error(error);
-      return response;
-    }
-  }
-
-  async postUMKMHandler(request, h) {
-    try {
-      this._validator.validateUmkmPayload(request.payload);
+      this._validator.validateResourcePayload(request.payload);
       const {
-        image, logo, name, description, location,
-        history, impact, contact, employe,
+        name, image, location, umkm, description,
       } = request.payload;
 
       const { id: owner } = request.auth.credentials;
 
-      const umkmId = await this._service.addUmkm({
-        image,
-        logo,
+      const resourceId = await this._service.addResource({
         name,
-        description,
+        image,
         location,
-        history,
-        impact,
-        contact,
-        employe,
+        umkm,
+        description,
         owner,
       });
 
       const response = h.response({
         error: false,
         status: 'success',
-        message: 'UMKM berhasil didaftarkan',
+        message: 'Resource berhasil ditambahkan',
         data: {
-          umkmId,
+          resourceId,
         },
       });
       response.code(201);
@@ -113,21 +61,32 @@ class UMKMHandler {
     }
   }
 
-  async putUMKMHandler(request, h) {
-    this._validator.validateUmkmPayload(request.payload);
+  async getAllResourcesHandler(request) {
+    const { id: owner } = request.auth.credentials;
+    const resources = await this._service.getResources(owner);
+    return {
+      error: false,
+      status: 'success',
+      message: 'Menampilkan semua resource',
+      count: resources.length,
+      data: {
+        resources,
+      },
+    };
+  }
+
+  async getResourceByIdHandler(request, h) {
     try {
       const { id } = request.params;
 
-      const { id: credentialId } = request.auth.credentials;
-
-      await this._service.verifyUmkmOwner(id, credentialId);
-
-      await this._service.editUmkmById(id, request.payload);
+      const resource = await this._service.getResourceById(id);
 
       return {
         error: false,
         status: 'success',
-        message: 'Profil UMKM berhasil diupdate',
+        data: {
+          resource,
+        },
       };
     } catch (error) {
       if (error instanceof ClientError) {
@@ -150,20 +109,20 @@ class UMKMHandler {
     }
   }
 
-  async deleteUmkmByIdHandler(request, h) {
+  async putResourceByIdHandler(request, h) {
     try {
+      this._validator.validateResourcePayload(request.payload);
       const { id } = request.params;
-
       const { id: credentialId } = request.auth.credentials;
 
-      await this._service.verifyUmkmOwner(id, credentialId);
+      await this._service.verifyResourceOwner(id, credentialId);
 
-      await this._service.deleteUmkmById(id);
+      await this._service.editResourceById(id, request.payload);
 
       return {
         error: false,
         status: 'success',
-        message: 'Umkm berhasil dihapus',
+        message: 'Resource berhasil diperbarui',
       };
     } catch (error) {
       if (error instanceof ClientError) {
@@ -179,6 +138,42 @@ class UMKMHandler {
       const response = h.response({
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',
+      });
+      response.code(500);
+      console.error(error);
+      return response;
+    }
+  }
+
+  async deleteResourceByIdHandler(request, h) {
+    try {
+      const { id } = request.params;
+
+      const { id: credentialId } = request.auth.credentials;
+
+      await this._service.verifyResourceOwner(id, credentialId);
+
+      await this._service.deleteResourceById(id);
+
+      return {
+        error: false,
+        status: 'success',
+        message: 'Resource berhasil dihapus',
+      };
+    } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+        });
+        response.code(error.statusCode);
+        return response;
+      }
+
+      // Server ERROR!
+      const response = h.response({
+        status: 'error',
+        message: 'Maaf, terjadi kegagalan pada server kami...',
       });
       response.code(500);
       console.error(error);
@@ -187,4 +182,4 @@ class UMKMHandler {
   }
 }
 
-module.exports = UMKMHandler;
+module.exports = ResourcesHandler;

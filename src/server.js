@@ -1,19 +1,50 @@
 require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
+const path = require('path');
+const Jwt = require('@hapi/jwt');
+const Inert = require('@hapi/inert');
 
+// products
 const products = require('./api/products');
 const ProductsService = require('./services/postgres/ProductsService');
+
+// umkm
 const umkms = require('./api/umkm');
 const UmkmsService = require('./services/postgres/UmkmService');
 
+// resources
+const resources = require('./api/resources');
+const ResourcesService = require('./services/postgres/ResourcesService');
+
+// users
+const users = require('./api/users');
+const UsersService = require('./services/postgres/UsersService');
+const UsersValidator = require('./validator/users');
+
+// authentications
+const authentications = require('./api/authentications');
+const AuthenticationsService = require('./services/postgres/AuthenticationsService');
+const TokenManager = require('./tokenize/TokenManager');
+const AuthenticationsValidator = require('./validator/authentications');
+
+// uploads
+const uploads = require('./api/uploads');
+const StorageService = require('./services/storage/StorageService');
+const UploadsValidator = require('./validator/uploads');
+
 // validator
 const ProductsValidator = require('./validator/products');
+const ResourcesValidator = require('./validator/resources');
 const UmkmsValidator = require('./validator/umkm');
 
 const init = async () => {
   const productsService = new ProductsService();
+  const resourcesService = new ResourcesService();
   const umkmsService = new UmkmsService();
+  const usersService = new UsersService();
+  const authenticationsService = new AuthenticationsService();
+  const storageService = new StorageService(path.resolve(__dirname, 'api/uploads/file/images'));
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -23,6 +54,32 @@ const init = async () => {
         origin: ['*'],
       },
     },
+  });
+
+  // registrasi plugin eksternal
+  await server.register([
+    {
+      plugin: Jwt,
+    },
+    {
+      plugin: Inert,
+    },
+  ]);
+
+  server.auth.strategy('trackmate_jwt', 'jwt', {
+    keys: process.env.ACCESS_TOKEN_KEY,
+    verify: {
+      aud: false,
+      iss: false,
+      sub: false,
+      maxAgeSec: process.env.ACCESS_TOKEN_AGE,
+    },
+    validate: (artifacts) => ({
+      isValid: true,
+      credentials: {
+        id: artifacts.decoded.payload.id,
+      },
+    }),
   });
 
   await server.register(
@@ -35,10 +92,40 @@ const init = async () => {
         },
       },
       {
+        plugin: resources,
+        options: {
+          service: resourcesService,
+          validator: ResourcesValidator,
+        },
+      },
+      {
         plugin: umkms,
         options: {
           service: umkmsService,
           validator: UmkmsValidator,
+        },
+      },
+      {
+        plugin: users,
+        options: {
+          service: usersService,
+          validator: UsersValidator,
+        },
+      },
+      {
+        plugin: authentications,
+        options: {
+          authenticationsService,
+          usersService,
+          tokenManager: TokenManager,
+          validator: AuthenticationsValidator,
+        },
+      },
+      {
+        plugin: uploads,
+        options: {
+          service: storageService,
+          validator: UploadsValidator,
         },
       },
     ],

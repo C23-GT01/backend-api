@@ -2,6 +2,7 @@ const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
+const AuthorizationError = require('../../exceptions/AuthorizationError');
 const { mapUmkmToModel } = require('../../utils');
 
 class UmkmService {
@@ -10,20 +11,25 @@ class UmkmService {
   }
 
   async addUmkm({
-    image, name, description, location, history, impact, contact,
+    image, logo, name, description, location, history, impact, contact, employe, owner,
   }) {
     const id = `Umkm-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const updateAt = createAt;
-
     const query = {
-      text: 'INSERT INTO umkm VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id',
-      values: [id,
+      text: 'INSERT INTO umkm VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id',
+      values: [
+        id,
         image,
+        logo,
         name,
         description,
         location,
-        history, impact, contact,
+        history,
+        impact,
+        contact,
+        employe,
+        owner,
         createAt,
         updateAt,
       ],
@@ -60,11 +66,11 @@ class UmkmService {
   }
 
   async editUmkmById(id, {
-    image, name, description, location, history, impact, contact,
+    image, logo, name, description, location, history, impact, contact, employe,
   }) {
     const query = {
-      text: 'UPDATE umkm SET name = $2, image = $1, description = $3, location = $4, history = $5, impact = $6, contact = $7 WHERE id = $8 RETURNING id',
-      values: [image, name, description, location, history, impact, contact, id],
+      text: 'UPDATE umkm SET name = $2, image = $1, logo = $9, description = $3, location = $4, history = $5, impact = $6, contact = $7, employe = $10 WHERE id = $8 RETURNING id',
+      values: [image, name, description, location, history, impact, contact, id, logo, employe],
     };
 
     const result = await this._pool.query(query);
@@ -84,6 +90,25 @@ class UmkmService {
 
     if (!result.rowCount) {
       throw new NotFoundError('Umkm gagal dihapus. Id tidak ditemukan');
+    }
+  }
+
+  async verifyUmkmOwner(id, owner) {
+    const query = {
+      text: 'SELECT * FROM umkm WHERE id = $1',
+      values: [id],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows.length) {
+      throw new NotFoundError('Resource yang Anda minta tidak ditemukan');
+    }
+
+    const note = result.rows[0];
+
+    if (note.owner !== owner) {
+      throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "backend-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "RestAPI for Trackmate",
   "main": "index.js",
   "scripts": {
@@ -10,10 +10,13 @@
     "migrate": "node-pg-migrate"
   },
   "keywords": [],
-  "author": "Cloud Computing Team",
+  "author": "Cloud Computing Team Trackmate",
   "license": "ISC",
   "dependencies": {
     "@hapi/hapi": "^21.3.2",
+    "@hapi/inert": "^7.1.0",
+    "@hapi/jwt": "^3.2.0",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "joi": "^17.11.0",
     "nanoid": "^3.3.7",

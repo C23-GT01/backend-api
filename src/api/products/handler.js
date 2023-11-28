@@ -8,6 +8,7 @@ class ProductsHandler {
     this.postProductHandler = this.postProductHandler.bind(this);
     this.getAllProductsHandler = this.getAllProductsHandler.bind(this);
     this.getProductByIdHandler = this.getProductByIdHandler.bind(this);
+    this.getProductByIdUmkmHandler = this.getProductByIdUmkmHandler.bind(this);
     this.putProductByIdHandler = this.putProductByIdHandler.bind(this);
     this.deleteProductByIdHandler = this.deleteProductByIdHandler.bind(this);
   }
@@ -17,8 +18,10 @@ class ProductsHandler {
       this._validator.validateProductPayload(request.payload);
       const {
         image, name, price, description, resources,
-        production, impact, contribution, umkm, category,
+        production, impact, contribution, category,
       } = request.payload;
+
+      const { id: owner } = request.auth.credentials;
 
       const productId = await this._service.addProduct({
         image,
@@ -29,11 +32,12 @@ class ProductsHandler {
         production,
         impact,
         contribution,
-        umkm,
         category,
+        owner,
       });
 
       const response = h.response({
+        error: false,
         status: 'success',
         message: 'Produk berhasil ditambahkan',
         data: {
@@ -66,7 +70,10 @@ class ProductsHandler {
   async getAllProductsHandler() {
     const products = await this._service.getProducts();
     return {
+      error: false,
       status: 'success',
+      message: 'Menampilkan semua produk',
+      count: products.length,
       data: {
         products: products.map((product) => ({
           id: product.id,
@@ -86,9 +93,52 @@ class ProductsHandler {
       const product = await this._service.getProductById(id);
 
       return {
+        error: false,
         status: 'success',
         data: {
           product,
+        },
+      };
+    } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+        });
+        response.code(error.statusCode);
+        return response;
+      }
+
+      // Server ERROR!
+      const response = h.response({
+        status: 'error',
+        message: 'Maaf, terjadi kegagalan pada server kami.',
+      });
+      response.code(500);
+      console.error(error);
+      return response;
+    }
+  }
+
+  async getProductByIdUmkmHandler(request, h) {
+    try {
+      const { id } = request.params;
+
+      const products = await this._service.getProductByIdUmkm(id);
+
+      return {
+        error: false,
+        status: 'success',
+        message: 'Menampilkan semua produk dari sebuah umkm',
+        count: products.length,
+        data: {
+          products: products.map((product) => ({
+            id: product.id,
+            name: product.name,
+            image: product.image,
+            price: product.price,
+            category: product.category,
+          })),
         },
       };
     } catch (error) {
@@ -116,10 +166,14 @@ class ProductsHandler {
     this._validator.validateProductPayload(request.payload);
     try {
       const { id } = request.params;
+      const { id: credentialId } = request.auth.credentials;
+
+      await this._service.verifyProductOwner(id, credentialId);
 
       await this._service.editProductById(id, request.payload);
 
       return {
+        error: false,
         status: 'success',
         message: 'Produk berhasil diperbarui',
       };
@@ -148,9 +202,14 @@ class ProductsHandler {
     try {
       const { id } = request.params;
 
+      const { id: credentialId } = request.auth.credentials;
+
+      await this._service.verifyProductOwner(id, credentialId);
+
       await this._service.deleteProductById(id);
 
       return {
+        error: false,
         status: 'success',
         message: 'Produk berhasil dihapus',
       };
@@ -167,7 +226,7 @@ class ProductsHandler {
       // Server ERROR!
       const response = h.response({
         status: 'error',
-        message: 'Maaf, terjadi kegagalan pada server kami.',
+        message: 'Maaf, terjadi kegagalan pada server kami...',
       });
       response.code(500);
       console.error(error);

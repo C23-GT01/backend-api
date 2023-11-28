@@ -9,7 +9,7 @@ exports.up = (pgm) => {
       primaryKey: true,
     },
     image: {
-      type: 'text',
+      type: 'TEXT[]',
       notNull: true,
     },
     name: {

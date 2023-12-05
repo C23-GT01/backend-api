@@ -1,12 +1,12 @@
 # TrackMate API Documentation
 # List of contents
 - Endpoint
-- [Product](https://github.com/alfimonth/be-trackmate--documentation#Product)
-  - [Get All Product](https://github.com/alfimonth/be-trackmate--documentation#Get-All-Product)
-  - [Get Detail Product](https://github.com/alfimonth/be-trackmate--documentation#Get-Detail-Product)
-- [UMKM](https://github.com/alfimonth/be-trackmate--documentation#UMKM)
-  - [Get All UMKM](https://github.com/alfimonth/be-trackmate--documentation#Get-All-UMKM)
-  - [Get Detail UMKM](https://github.com/alfimonth/be-trackmate--documentation#Get-Detail-UMKM)
+- [Product](https://github.com/C23-GT01/backend-api#Product)
+  - [Get All Product](https://github.com/C23-GT01/backend-api#Get-All-Product)
+  - [Get Detail Product](https://github.com/C23-GT01/backend-api#Get-Detail-Product)
+- [UMKM](https://github.com/C23-GT01/backend-api#UMKM)
+  - [Get All UMKM](https://github.com/C23-GT01/backend-api#Get-All-UMKM)
+  - [Get Detail UMKM](https://github.com/C23-GT01/backend-api#Get-Detail-UMKM)
 # Endpoint
 - Production `coming soon`
 - Development
@@ -264,10 +264,10 @@ GET /umkm/:id
       "name": "Sambal Mamo",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       "location": {
-        "lat": -34.397,
-        "lng": 150.644,
-        "name": "Wonogiri, Jawa Tengah"
-      },
+          "lat": -8.113750063882303,
+          "lng": 115.0913508971701,
+          "name": "Jl. Ngurah Rai,  Buleleng, Bali"
+       },
       "history": {
         "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
         "image": "https://i.ibb.co/0fr1VCg/image.jpg"

@@ -1,11 +1,12 @@
 # TrackMate API Documentation
 # List of contents
 - Endpoint
-- [Product](https://github.com/alfimonth/be-trackmate--documentation#Product)
-  - [Get All Product](https://github.com/alfimonth/be-trackmate--documentation#Get-All-Product)
-  - [Get Detail Product](https://github.com/alfimonth/be-trackmate--documentation#Get-Detail-Product)
-- [UMKM](https://github.com/alfimonth/be-trackmate--documentation#UMKM)
-  - [Get All UMKM](https://github.com/alfimonth/be-trackmate--documentation#Get-All-UMKM)
+- [Product](https://github.com/C23-GT01/backend-api#Product)
+  - [Get All Product](https://github.com/C23-GT01/backend-api#Get-All-Product)
+  - [Get Detail Product](https://github.com/C23-GT01/backend-api#Get-Detail-Product)
+- [UMKM](https://github.com/C23-GT01/backend-api#UMKM)
+  - [Get All UMKM](https://github.com/C23-GT01/backend-api#Get-All-UMKM)
+  - [Get Detail UMKM](https://github.com/C23-GT01/backend-api#Get-Detail-UMKM)
 # Endpoint
 - Production `coming soon`
 - Development
@@ -211,7 +212,7 @@ GET /umkm
     "umkm": [
       {
         "id": "umkm-xyz1",
-        "image": "https://picsum.photos/200",
+        "logo": "https://picsum.photos/200",
         "name": "Trackmate",
         "location": {
           "lat": -34.397,
@@ -221,7 +222,7 @@ GET /umkm
       },
       {
         "id": "Umkm-VKDhH1FD3QbdzH6s",
-        "image": "https://i.ibb.co/BwNSbMb/logo-mamo.jpg",
+        "logo": "https://i.ibb.co/BwNSbMb/logo-mamo.jpg",
         "name": "Sambal Mamo",
         "location": {
           "lat": -8.113750063882303,
@@ -230,6 +231,98 @@ GET /umkm
         }
       },
     ]
+  }
+}
+```
+
+## Get Detail UMKM
+
+- Path
+```http
+GET /umkm/:id
+```
+
+- Response
+```javascript
+{
+  "error"   : bool,
+  "status"  : string,
+  "data"    : object,
+}
+```
+
+- Example Response
+```json
+{
+  "error": false,
+  "status": "success",
+  "data": {
+    "umkm": {
+      "id": "Umkm-VKDhH1FD3QbdzH6s",
+      "image": "https://i.ibb.co/0fr1VCg/image.jpg",
+      "logo": "https://i.ibb.co/BwNSbMb/logo-mamo.jpg",
+      "name": "Sambal Mamo",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      "location": {
+          "lat": -8.113750063882303,
+          "lng": 115.0913508971701,
+          "name": "Jl. Ngurah Rai,  Buleleng, Bali"
+       },
+      "history": {
+        "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "image": "https://i.ibb.co/0fr1VCg/image.jpg"
+      },
+      "impact": [
+        {
+          "name": "Carbon Footprint",
+          "image": "https://i.ibb.co/0fr1VCg/image.jpg",
+          "deskripsi": "Meminimalisir potensi jejak karbon baik secara individu/kelompok"
+        },
+        {
+          "name": "Waste Management",
+          "image": "https://i.ibb.co/0fr1VCg/image.jpg",
+          "deskripsi": "Melakukan tracing dalam upaya pengurangan limbah sekitar lingkungan usaha"
+        },
+        {
+          "name": "Water Use",
+          "image": "https://i.ibb.co/0fr1VCg/image.jpg",
+          "deskripsi": "Meniliki upaya efisiensi penggunaan air"
+        },
+        {
+          "name": "Product Lyfecycle",
+          "image": "https://i.ibb.co/0fr1VCg/image.jpg",
+          "deskripsi": "Memiliki daur hidup produk agar membantu meminimalisir kerusakan lingkungan"
+        },
+        {
+          "name": "Health and Safety",
+          "image": "https://i.ibb.co/0fr1VCg/image.jpg",
+          "deskripsi": "Mengukur kadar keamanan produk dalam penggunaan, keberlanjutan bahan baku dan pemanfaatan potensi daur ulang produk"
+        },
+        {
+          "name": "Working Condition",
+          "image": "https://i.ibb.co/0fr1VCg/image.jpg",
+          "deskripsi": "Menilik iklim komunikasi dalam lingkup pekerjaan dan sosial yang berkaitan dengan kesejahteraan dan kenyamanan pekerja"
+        },
+        {
+          "name": "Human Right",
+          "image": "https://i.ibb.co/0fr1VCg/image.jpg",
+          "deskripsi": "Meninjau pemenuhan hak-hak pekerja dalam berbagai aspek dengan berlandaskan regulasi yang berlaku hingga dimungkinkan adanya standarisasi"
+        }
+      ],
+      "contact": [
+        {
+          "email": "08123456789",
+          "phone": {
+            "isWhatsApp": true,
+            "phoneNumber": "0019272138",
+            "waNumber": "0019272138"
+          }
+        }
+      ],
+      "owner": "user-ck3VlWtOkmMiEoU2",
+      "createdAt": "2023-11-28T13:06:42.530Z",
+      "updatedAt": "2023-11-28T13:06:42.530Z"
+    }
   }
 }
 ```

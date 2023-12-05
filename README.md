@@ -77,7 +77,6 @@ GET /products/:id
 {
   "error"   : bool,
   "status"  : string,
-  "message" : string,
   "data"    : object,
 }
 ```

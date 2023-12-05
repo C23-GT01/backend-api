@@ -3,10 +3,10 @@
 - Endpoint
 - [Product](#Product)
   - [Get All Product](#Get-All-Product)
-  - [Get Detail Product](https://github.com/C23-GT01/backend-api#Get-Detail-Product)
-- [UMKM](https://github.com/C23-GT01/backend-api#UMKM)
-  - [Get All UMKM](https://github.com/C23-GT01/backend-api#Get-All-UMKM)
-  - [Get Detail UMKM](https://github.com/C23-GT01/backend-api#Get-Detail-UMKM)
+  - [Get Detail Product](#Get-Detail-Product)
+- [UMKM](#UMKM)
+  - [Get All UMKM](i#Get-All-UMKM)
+  - [Get Detail UMKM](#Get-Detail-UMKM)
 # Endpoint
 - Production `coming soon`
 - Development

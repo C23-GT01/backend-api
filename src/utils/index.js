@@ -49,6 +49,7 @@ const mapResourceToModel = ({
 const mapUmkmToModel = ({
   id,
   image,
+  logo,
   name,
   description,
   location,
@@ -61,6 +62,7 @@ const mapUmkmToModel = ({
 }) => ({
   id,
   image,
+  logo,
   name,
   description,
   location,

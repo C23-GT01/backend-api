@@ -1,8 +1,8 @@
 # TrackMate API Documentation
 # List of contents
 - Endpoint
-- [Product](https://github.com/C23-GT01/backend-api#Product)
-  - [Get All Product](https://github.com/C23-GT01/backend-api#Get-All-Product)
+- [Product](#Product)
+  - [Get All Product](#Get-All-Product)
   - [Get Detail Product](https://github.com/C23-GT01/backend-api#Get-Detail-Product)
 - [UMKM](https://github.com/C23-GT01/backend-api#UMKM)
   - [Get All UMKM](https://github.com/C23-GT01/backend-api#Get-All-UMKM)

@@ -208,11 +208,11 @@ GET /umkm
   "message": "Menampilkan semua umkm",
   "count": 2,
   "data": {
-    "umk": [
+    "umkm": [
       {
         "id": "umkm-xyz1",
         "image": "https://picsum.photos/200",
-        "name": "PT Tracmate",
+        "name": "Trackmate",
         "location": {
           "lat": -34.397,
           "lng": 150.644,
@@ -220,13 +220,13 @@ GET /umkm
         }
       },
       {
-        "id": "umkm-xyz2",
-        "image": "https://picsum.photos/200",
+        "id": "Umkm-VKDhH1FD3QbdzH6s",
+        "image": "https://i.ibb.co/BwNSbMb/logo-mamo.jpg",
         "name": "Sambal Mamo",
         "location": {
-          "lat": -34.397,
-          "lng": 150.644,
-          "name": "Buleleng, Bali"
+          "lat": -8.113750063882303,
+          "lng": 115.0913508971701,
+          "name": "Jl. Ngurah Rai,  Buleleng, Bali"
         }
       },
     ]

@@ -3,6 +3,9 @@
 - Endpoint
 - [Product](https://github.com/alfimonth/be-trackmate--documentation#Product)
   - [Get All Product](https://github.com/alfimonth/be-trackmate--documentation#Get-All-Product)
+  - [Get Detail Product](https://github.com/alfimonth/be-trackmate--documentation#Get-Detail-Product)
+- [UMKM](https://github.com/alfimonth/be-trackmate--documentation#UMKM)
+  - [Get All UMKM](https://github.com/alfimonth/be-trackmate--documentation#Get-All-UMKM)
 # Endpoint
 - Production `coming soon`
 - Development
@@ -98,7 +101,7 @@ GET /products/:id
                     "image": "https://picsum.photos/200",
                     "location": {
                         "lat": -34.397,
-                        "lng": 150.644
+                        "lng": 150.644,
                         "name": "Wonogiri, Jawa Tengah",
                     },
                     "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
@@ -109,7 +112,7 @@ GET /products/:id
                     "image": "https://picsum.photos/200",
                     "location": {
                         "lat" : -34.397,
-                        "lng" : 150.644
+                        "lng" : 150.644,
                         "name": "Wonogiri, Jawa Tengah",
                     },
                     "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
@@ -119,7 +122,7 @@ GET /products/:id
                     "image": "https://picsum.photos/200",
                     "location": {
                         "lat": -34.397,
-                        "lng": 150.644
+                        "lng": 150.644,
                         "name": "New York, US",
                     },
                     "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
@@ -178,3 +181,56 @@ GET /products/:id
     }
 }
 ```
+
+# UMKM
+## Get All UMKM
+
+- Path
+```http
+GET /umkm
+```
+
+- Response
+```javascript
+{
+  "error"   : bool,
+  "status"  : string,
+  "message" : string,
+  "count"   : int,
+  "data"    : object,
+}
+```
+- Example Response
+```json
+{
+  "error": false,
+  "status": "success",
+  "message": "Menampilkan semua umkm",
+  "count": 2,
+  "data": {
+    "umk": [
+      {
+        "id": "umkm-xyz1",
+        "image": "https://picsum.photos/200",
+        "name": "PT Tracmate",
+        "location": {
+          "lat": -34.397,
+          "lng": 150.644,
+          "name": "Wonogiri, Jawa Tengah"
+        }
+      },
+      {
+        "id": "umkm-xyz2",
+        "image": "https://picsum.photos/200",
+        "name": "Sambal Mamo",
+        "location": {
+          "lat": -34.397,
+          "lng": 150.644,
+          "name": "Buleleng, Bali"
+        }
+      },
+    ]
+  }
+}
+```
+

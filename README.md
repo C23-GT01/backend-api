@@ -313,9 +313,9 @@ GET /umkm/:id
         {
           "email": "08123456789",
           "phone": {
-            "isWhatsApp": true,
+            "isWhatsApp": false,
             "phoneNumber": "0019272138",
-            "waNumber": "0019272138"
+            "waNumber": "0012345678"
           }
         }
       ],

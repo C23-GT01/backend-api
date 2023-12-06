@@ -5,8 +5,11 @@
   - [Get All Product](#Get-All-Product)
   - [Get Detail Product](#Get-Detail-Product)
 - [UMKM](#UMKM)
-  - [Get All UMKM](i#Get-All-UMKM)
+  - [Get All UMKM](#Get-All-UMKM)
   - [Get Detail UMKM](#Get-Detail-UMKM)
+- [Error Handling](#Error-Handling)
+  - [Client Error](#Client-Error)
+  - [Server Error](#Server-Error)
 # Endpoint
 - Production `coming soon`
 - Development
@@ -326,4 +329,47 @@ GET /umkm/:id
   }
 }
 ```
+
+# Error Handling
+## Client Error
+- Response
+```javascript
+{
+  "error"   : bool,
+  "status"  : string,
+  "message" : string,
+}
+```
+
+- Example Response
+```json
+{
+    "error": true,
+    "status": "fail",
+    "message": "Product tidak ditemukan",
+}
+```
+
+
+## Server Error
+- Response
+```javascript
+{
+  "error"   : bool,
+  "status"  : string,
+  "message" : string,
+  "stack"   : string,
+}
+```
+
+- Example Response
+```json
+{
+    "error": true,
+    "status": "error",
+    "message": "terjadi kegagalan pada server kami",
+    "stack": "TypeError: Cannot read ...."
+}
+```
+  
 

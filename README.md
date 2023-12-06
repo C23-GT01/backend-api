@@ -739,14 +739,14 @@ PUT /umkm
           "deskripsi": "lorem 100"
         }
       ],
-	"contact" : [
-	  {
-    "name": "whatsapp",
-          "deskripsi": "08123456789"
+"contact" : [
+	{
+	"name": "whatsapp",
+	"deskripsi": "08123456789"
         },
         {
-    "name": "email",
-          "deskripsi": "sambal@gmail.com"
+    	"name": "email",
+	"deskripsi": "sambal@gmail.com"
         }
     ]
   }
@@ -799,14 +799,14 @@ DELETE /umkm/:id
           "deskripsi": "lorem 100"
         }
       ],
-	"contact" : [
-	  {
-    "name": "whatsapp",
-          "deskripsi": "08123456789"
-        },
-        {
-    "name": "email",
-          "deskripsi": "sambal@gmail.com"
+"contact" : [
+	{
+	"name": "whatsapp",
+	"deskripsi": "08123456789"
+	},
+	{
+    	"name": "email",
+	"deskripsi": "sambal@gmail.com"
         }
     ]
   }

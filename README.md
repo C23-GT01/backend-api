@@ -36,7 +36,7 @@ POST /users
 {
     "username": string,
     "email": string,
-    "image": string, #opional
+    "image": string, #optional
     "role": string,
     "password": string,
     "fullname": string,
@@ -49,7 +49,30 @@ POST /users
     "email": "user1@gmail.com",
     "role": "user",
     "password": "123user",
-    "fullname": "User Trackamte",
+    "fullname": "User Trackamte"
+}
+```
+
+- Response
+```javascript
+{
+    "error"  : bool,
+    "status" : string,
+    "message": string,
+    "data"   : {
+        "userId": string
+    }
+}
+```
+- Example Response
+```json
+{
+    "error": false,
+    "status": "success",
+    "message": "User berhasil ditambahkan",
+    "data": {
+        "userId": "user-I4YvO_qdU337HszX"
+    }
 }
 ```
 

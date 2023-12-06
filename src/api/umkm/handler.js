@@ -12,7 +12,14 @@ class UMKMHandler {
       count: umkm.length,
       status: 'success',
       data: {
-        umkm,
+        umkm: umkm.map((item) => (
+          {
+            id: item.id,
+            logo: item.logo,
+            name: item.name,
+            location: item.location,
+          }
+        )),
       },
     };
   }

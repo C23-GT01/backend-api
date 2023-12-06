@@ -1,6 +1,8 @@
 # TrackMate API Documentation
 # List of contents
 - [Endpoint](#Endpoint)
+- [Account](#Account)
+  - [Register](#Register)
 - [Product](#Product)
   - [Get All Product](#Get-All-Product)
   - [Get Detail Product](#Get-Detail-Product)
@@ -23,6 +25,35 @@
 ```
 http://localhost:5000
 ```
+# Account
+## Register
+- Path
+```http
+POST /users
+```
+- Body Request
+```javascript
+{
+    "username": string,
+    "email": string,
+    "image": string, #opional
+    "role": string,
+    "password": string,
+    "fullname": string,
+}
+```
+- Example Body Request
+```json
+{
+    "username": "user1",
+    "email": "user1@gmail.com",
+    "role": "user",
+    "password": "123user",
+    "fullname": "User Trackamte",
+}
+```
+
+  
 # Product
 ## Get All Product
 

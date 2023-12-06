@@ -2,7 +2,7 @@ const routes = (handler) => [
   {
     method: 'POST',
     path: '/resources',
-    handler: handler.postResourceHandler,
+    handler: (request, h) => handler.postResourceHandler(request, h),
     options: {
       auth: 'trackmate_jwt',
     },
@@ -10,7 +10,7 @@ const routes = (handler) => [
   {
     method: 'GET',
     path: '/resources',
-    handler: handler.getAllResourcesHandler,
+    handler: (request, h) => handler.getAllResourcesHandler(request, h),
     options: {
       auth: 'trackmate_jwt',
     },
@@ -18,12 +18,12 @@ const routes = (handler) => [
   {
     method: 'GET',
     path: '/resources/{id}',
-    handler: handler.getResourceByIdHandler,
+    handler: (request, h) => handler.getResourceByIdHandler(request, h),
   },
   {
     method: 'PUT',
     path: '/resources/{id}',
-    handler: handler.putResourceByIdHandler,
+    handler: (request, h) => handler.putResourceByIdHandler(request, h),
     options: {
       auth: 'trackmate_jwt',
     },
@@ -31,7 +31,7 @@ const routes = (handler) => [
   {
     method: 'DELETE',
     path: '/resources/{id}',
-    handler: handler.deleteResourceByIdHandler,
+    handler: (request, h) => handler.deleteResourceByIdHandler(request, h),
     options: {
       auth: 'trackmate_jwt',
     },

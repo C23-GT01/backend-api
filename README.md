@@ -4,6 +4,7 @@
 - [Product](#Product)
   - [Get All Product](#Get-All-Product)
   - [Get Detail Product](#Get-Detail-Product)
+  - [Get All Product by ID UMKM](#Get-All-Product-by-id-UMKM)
 - [UMKM](#UMKM)
   - [Get All UMKM](#Get-All-UMKM)
   - [Get Detail UMKM](#Get-Detail-UMKM)
@@ -188,8 +189,8 @@ GET /products/:id
 
 ## Get All Product by id UMKM
 - Path
-```
-GET //products/umkm/:idumkm
+```http
+GET /products/umkm/:idumkm
 ```
 - Response
 ```javascript
@@ -229,6 +230,253 @@ GET //products/umkm/:idumkm
 }
 ```
 
+## Add Product
+- Path
+```http
+POST /products
+```
+- Response
+```javascript
+{
+  "status": string,
+  "message": string,
+  "data": object,
+}
+```
+- Example Response
+```json
+{
+  "status": "success",
+  "message": "Produk berhasil ditambahkan",
+  "data": {
+    "productId": 1
+  }
+}
+```
+- Body
+```json
+{
+  "image": "https://picsum.photos/200",
+  "price": 50000,
+  "description": "sambal enak sekali",
+  "name": "sambal khas",
+  "umkm": {
+    "name": "Sambal Mantu",
+    "employe": 1000,
+    "location": {
+      "name": "Denpasar, Bali",
+      "lat ": -34.397,
+      "lng  ": 150.644
+    }
+  },
+  "resources": [
+    {
+      "name": "cabai",
+      "image": "https://picsum.photos/200",
+      "deskripsi": "pedas",
+      "location": {
+        "name": "Wonogiri, Jawa Tengah",
+        "lat ": -34.397,
+        "lng  ": 150.644
+      },
+      "umkm": "Sukamaju"
+    },
+    {
+      "name": "batu",
+      "image": "https://picsum.photos/200",
+      "deskripsi": "lorem100",
+      "location": {
+        "name": "Wonogiri, Jawa Tengah",
+        "lat ": -34.397,
+        "lng  ": 150.644
+      },
+      "umkm": "Sukamaju"
+    },
+    {
+      "name": "batu",
+      "image": "https://picsum.photos/200",
+      "deskripsi": "lorem100",
+      "location": {
+        "name": "New York, US",
+        "lat ": -34.397,
+        "lng  ": 150.644
+      }
+    }
+  ],
+  "production": [
+    {
+      "name": "pengumpulan bahan baku",
+      "image": "https://picsum.photos/200",
+      "deskripsi": "lorem100"
+    },
+    {
+      "name": "penumbukan",
+      "image": "https://picsum.photos/200",
+      "deskripsi": "lorem100"
+    },
+    {
+      "name": "pengemasan",
+      "image": "https://picsum.photos/200",
+      "deskripsi": "lorem100"
+    }
+  ],
+  "impact": [
+    {
+      "name": "batu",
+      "icon": 1,
+      "deskripsi": "lorem100"
+    },
+    {
+      "name": "batu",
+      "icon": 2,
+      "deskripsi": "lorem100"
+    },
+    {
+      "name": "batu",
+      "icon": 3,
+      "deskripsi": "lorem 100"
+    }
+  ],
+  "contribution": [
+    {
+      "icon": 1,
+      "deskripsi": "lorem 100"
+    },
+    {
+      "icon": 1,
+      "deskripsi": "lorem100"
+    },
+    {
+      "icon": "https://picsum.photos/200",
+      "deskripsi": "lorem100"
+    }
+  ],
+  "category": null
+}
+```
+
+## Edit Product
+- Path
+```http
+PUT /products
+```
+- Response
+```javascript
+{
+  "status": string,
+  "message": string,
+}
+```
+- Example Response
+```json
+{
+  "status": "success",
+  "message": "Produk berhasil diperbrui",
+}
+```
+- Body
+```json
+{
+      "id": "xxx",
+      "image": "http://a.jpg",
+      "price": 13000,
+      "description": "lorem100",
+      "name": "sambal kuning",
+      "umkm": {
+        "name": "Sambal Mantu",
+        "employe": 1000,
+        "location": "koordinat"
+      },
+      "resources": [
+        {
+          "name": "cabai",
+          "image": "https://image.com/",
+          "deskripsi": "pedas",
+          "location": "koordinat"
+        },
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem100",
+          "location": "koordinat"
+        },
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem100",
+          "location": "koordinat"
+        }
+      ],
+      "production": [
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem100"
+        },
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem100"
+        },
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem100"
+        }
+      ],
+      "impact": [
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem100"
+        },
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem100"
+        },
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem100"
+        }
+      ],
+      "contribution": [
+        {
+          "icon": "https://image.com/",
+          "deskripsi": "lorem100"
+        },
+        {
+          "icon": "https://image.com/",
+          "deskripsi": "lorem100"
+        },
+        {
+          "icon": "https://image.com/",
+          "deskripsi": "lorem100"
+        }
+      ]
+    }
+```
+
+## Delete Product
+- Path
+```http
+DELETE /products/:id
+```
+- Response
+```javascript
+{
+  "status": string,
+  "message": string,
+}
+```
+- Example Response
+```json
+{
+  "status": "success",
+  "message": "Produk berhasil dihapus",
+}
+```
 
 # UMKM
 ## Get All UMKM
@@ -372,6 +620,190 @@ GET /umkm/:id
     }
   }
 }
+```
+
+## Add UMKM
+- Path
+```http
+POST /umkm
+```
+- Response
+```javascript
+{
+  "status": string,
+  "message": string,
+  "data": object,
+}
+```
+- Example Response
+```json
+{
+  "status": "success",
+  "message": "UMKM berhasil didaftarkan",
+  "data": {
+    "umkmId": 1
+  }
+}
+```
+- Body
+```json
+{
+  "image": "http://a.jpg",
+  "name": "PT Sambal",
+  "description": "lorem100",
+  "location": "jshak hdak",
+  "history": {
+ 		"image": "http://a.jpg",
+     	 	"text": "sambal kuning"
+},
+  "impact": [
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem 100"
+        },
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem 100"
+        },
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem 100"
+        }
+      ],
+	  "contact" : [
+  	  {
+      "name": "whatsapp",
+          "deskripsi": "08123456789"
+        },
+        {
+      "name": "email",
+          "deskripsi": "sambal@gmail.com"
+      }
+    ]
+  }
+```
+
+## Edit UMKM
+- Path
+```http
+PUT /umkm
+```
+- Response
+```javascript
+{
+  "status": string,
+  "message": string,
+}
+```
+- Example Response
+```json
+{
+  "status": "success",
+  "message": "Profil UMKM berhasil diupdate",
+}
+```
+- Body
+```json
+{
+  "image": "http://a.jpg",
+  "name": "PT Sambal 2",
+  "description": "lorem100",
+  "location": "jshak hdak",
+  "history": {
+ 		"image": "http://a.jpg",
+     	 	"text": "sambal kuning"
+},
+  "impact": [
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem 100"
+        },
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem 100"
+        },
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem 100"
+        }
+      ],
+	"contact" : [
+	  {
+    "name": "whatsapp",
+          "deskripsi": "08123456789"
+        },
+        {
+    "name": "email",
+          "deskripsi": "sambal@gmail.com"
+        }
+    ]
+  }
+```
+
+## Delete UMKM
+- Path
+```http
+DELETE /umkm/:id
+```
+- Response
+```javascript
+{
+  "status": string,
+  "message": string,
+}
+```
+- Example Response
+```json
+{
+  "status": "success",
+  "message": "Profil UMKM berhasil diupdate",
+}
+```
+- Body
+```json
+{
+  "image": "http://a.jpg",
+  "name": "PT Sambal 2",
+  "description": "lorem100",
+  "location": "jshak hdak",
+  "history": {
+ 		"image": "http://a.jpg",
+     	 	"text": "sambal kuning"
+},
+  "impact": [
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem 100"
+        },
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem 100"
+        },
+        {
+          "name": "batu",
+          "image": "https://image.com/",
+          "deskripsi": "lorem 100"
+        }
+      ],
+	"contact" : [
+	  {
+    "name": "whatsapp",
+          "deskripsi": "08123456789"
+        },
+        {
+    "name": "email",
+          "deskripsi": "sambal@gmail.com"
+        }
+    ]
+  }
 ```
 
 # Error Handling

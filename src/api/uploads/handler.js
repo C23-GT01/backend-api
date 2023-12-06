@@ -8,17 +8,27 @@ class UploadsHandler {
     const { data } = request.payload;
     this._validator.validateImageHeaders(data.hapi.headers);
 
-    const filename = await this._service.writeFile(data, data.hapi);
+    try {
+      const filename = await this._service.writeFile(data, data.hapi);
 
-    const response = h.response({
-      error: false,
-      status: 'success',
-      data: {
-        fileLocation: `http://${process.env.HOST}:${process.env.PORT}/upload/images/${filename}`,
-      },
-    });
-    response.code(201);
-    return response;
+      const response = h.response({
+        error: false,
+        status: 'success',
+        data: {
+          fileLocation: `https://storage.googleapis.com/${process.env.GCS_BUCKET}/${filename}`,
+        },
+      });
+      response.code(201);
+      return response;
+    } catch (error) {
+      const response = h.response({
+        error: true,
+        status: 'failed',
+        message: `Failed to upload file to Google Cloud Storage: ${error.message}`,
+      });
+      response.code(500);
+      return response;
+    }
   }
 }
 

@@ -1,24 +1,31 @@
-const fs = require('fs');
+const { Storage } = require('@google-cloud/storage');
+const path = require('path');
+
+const credentialPath = path.join(__dirname, 'storage.json');
 
 class StorageService {
-  constructor(folder) {
-    this._folder = folder;
-
-    if (!fs.existsSync(folder)) {
-      fs.mkdirSync(folder, { recursive: true });
-    }
+  constructor(bucketName) {
+    this._bucketName = bucketName;
+    this._storage = new Storage({
+      keyFilename: credentialPath,
+      projectId: process.env.PROJECT_ID,
+    });
+    this._bucket = this._storage.bucket(bucketName);
   }
 
-  writeFile(file, meta) {
-    const filename = +new Date() + meta.filename;
-    const path = `${this._folder}/${filename}`;
-
-    const fileStream = fs.createWriteStream(path);
+  async writeFile(file, meta) {
+    const folderName = 'image';
+    const filename = `${folderName}/${+new Date()}_${meta.filename}`;
+    const fileBlob = this._bucket.file(filename);
+    const stream = fileBlob.createWriteStream({
+      resumable: false,
+      contentType: meta.headers['content-type'],
+    });
 
     return new Promise((resolve, reject) => {
-      fileStream.on('error', (error) => reject(error));
-      file.pipe(fileStream);
-      file.on('end', () => resolve(filename));
+      stream.on('error', (error) => reject(error));
+      stream.on('finish', () => resolve(filename));
+      file.pipe(stream);
     });
   }
 }

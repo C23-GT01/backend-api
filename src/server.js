@@ -43,7 +43,7 @@ const init = async () => {
   const productsService = new ProductsService();
   const umkmsService = new UmkmsService();
   const usersService = new UsersService();
-  const storageService = new StorageService(path.resolve(__dirname, 'api/uploads/file/images'));
+  const storageService = new StorageService(process.env.GCS_BUCKET);
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -135,7 +135,7 @@ const init = async () => {
     if (response instanceof Error) {
       if (response instanceof ClientError) {
         const newResponse = h.response({
-          error: 'true',
+          error: true,
           status: 'fail',
           message: response.message,
         });
@@ -149,7 +149,7 @@ const init = async () => {
       }
 
       const newResponse = h.response({
-        error: 'true',
+        error: true,
         status: 'error',
         message: 'terjadi kegagalan pada server kami',
         stack: response.stack,
@@ -163,7 +163,7 @@ const init = async () => {
   });
 
   await server.start();
-  console.log(`Server berjalan pada ${server.info.uri}`);
+  console.log(`Server running well on ${server.info.uri}`);
 };
 
 init().then();

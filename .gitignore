@@ -4,3 +4,5 @@ node_modules
 /src/api/uploads/file
 test.json
 test.js
+app.yaml
+/src/services/storage/storage.json

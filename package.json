@@ -4,6 +4,7 @@
   "description": "RestAPI for Trackmate",
   "main": "index.js",
   "scripts": {
+    "start": "node ./src/server.js",
     "start-prod": "NODE_ENV=production node ./src/server.js",
     "dev": "nodemon ./src/server.js",
     "lint": "eslint ./src",
@@ -30,5 +31,8 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.0",
     "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": "16.19.0"
   }
 }

@@ -1,0 +1,23 @@
+runtime: nodejs
+env: flex
+
+manual_scaling:
+  instances: 1
+
+env_variables:
+  HOST: 0.0.0.0
+  PGUSER: 
+  PGHOST: 
+  PGPASSWORD: 
+  PGDATABASE: 
+  PGPORT: 5432
+  GCS_BUCKET: 
+  PROJECT_ID:
+  ACCESS_TOKEN_KEY: 
+  REFRESH_TOKEN_KEY: 
+  ACCESS_TOKEN_AGE: 300
+  
+beta_settings:
+  cloud_sql_instances: trackmate-backend-alpha-01:asia-southeast1:trackmate-database-alpha-01=tcp:5432
+
+

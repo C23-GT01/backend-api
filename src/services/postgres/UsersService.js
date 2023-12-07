@@ -97,8 +97,22 @@ class UsersService {
   async editProfile(id, {
     username, image, email, fullname,
   }) {
-    await this.verifyNewUsername(username, 'Gagal edit profil');
-    await this.verifyNewEmail(email, 'Gagal edit profil');
+    const query1 = {
+      text: 'SELECT username, email FROM users WHERE id = $1',
+      values: [id],
+    };
+
+    const result1 = await this._pool.query(query1);
+
+    const preusername = result1.rows[0].username;
+    const preemail = result1.rows[0].email;
+
+    if (username !== preusername) {
+      await this.verifyNewUsername(username, 'Gagal edit profil');
+    }
+    if (email !== preemail) {
+      await this.verifyNewEmail(email, 'Gagal edit profil');
+    }
 
     const updatedAt = new Date().toISOString();
     const query = {

@@ -5,6 +5,7 @@
   - [Register](#Register)
   - [Login](#Login)
   - [User Login Profile](#User-Login-Profile)
+  - [Edit Profile](#Edit-Profile)
 - [Product](#Product)
   - [Get All Product](#Get-All-Product)
   - [Get Detail Product](#Get-Detail-Product)
@@ -144,7 +145,6 @@ Content-Type: application/json
             "username": string,
             "email": string,
             "image": string || null,
-            "role": string,
             "fullname": string
         }
     }
@@ -161,12 +161,58 @@ Content-Type: application/json
             "username": "user-1701908278",
             "email": "user-1701908278@gmail.com",
             "image": null, //will be null if not yet edited 
-            "role": "user",
             "fullname": "User Trackamte"
         }
     }
 }
 ```
+## Edit Profile
+- Path
+```http
+PUT /users
+```
+- Headers
+```http
+Authorization: Bearer <access_token>
+Content-Type: application/json
+```
+- Body Request
+```javascript
+{
+    "username": string,
+    "email": string,
+    "image": string || null,
+    "fullname": string
+}
+```
+- Example Body Request
+```json
+{
+    "username": "user1 Edited",
+    "email": "user1edited@gmail.com",
+    "image": "http://image.com",
+    "fullname": "User Trackamte Edited"
+}
+```
+
+- Response
+```javascript
+{
+    "error": bool,
+    "status": string,
+    "message": string
+}
+```
+- Example Response
+```json
+{
+    "error": false,
+    "status": "success",
+    "message": "Profil berhasil diperbarui"
+}
+```
+
+
   
 # Product
 ## Get All Product

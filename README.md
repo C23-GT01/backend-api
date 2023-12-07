@@ -643,6 +643,11 @@ GET /products/umkm/:idumkm
 ```http
 POST /products
 ```
+- Headers
+```http
+Authorization: Bearer <access_token>
+Content-Type: application/json
+```
 - Response
 ```javascript
 {
@@ -768,6 +773,11 @@ POST /products
 ```http
 PUT /products
 ```
+- Headers
+```http
+Authorization: Bearer <access_token>
+Content-Type: application/json
+```
 - Response
 ```javascript
 {
@@ -871,6 +881,11 @@ PUT /products
 ```http
 DELETE /products/:id
 ```
+- Headers
+```http
+Authorization: Bearer <access_token>
+Content-Type: application/json
+```
 - Response
 ```javascript
 {
@@ -893,7 +908,6 @@ DELETE /products/:id
 ```http
 GET /umkm
 ```
-
 - Response
 ```javascript
 {
@@ -1162,6 +1176,11 @@ Content-Type: application/json
 - Path
 ```http
 DELETE /umkm/:id
+```
+- Headers
+```http
+Authorization: Bearer <access_token>
+Content-Type: application/json
 ```
 - Response
 ```javascript

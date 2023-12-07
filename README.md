@@ -25,6 +25,7 @@
 - [Error Handling](#Error-Handling)
   - [Client Error](#Client-Error)
   - [Server Error](#Server-Error)
+- [Status Code](#Status-Code)
 # Endpoint
 - Production `coming soon`
 - Development
@@ -1159,5 +1160,17 @@ DELETE /umkm/:id
     "stack": "TypeError: Cannot read ...."
 }
 ```
+
+# Status Codes
+
+| Status Code | Description |
+| :--- | :--- |
+| 200 | `OK` |
+| 201 | `CREATED` |
+| 400 | `BAD REQUEST` |
+| 404 | `NOT FOUND` |
+| 500 | `INTERNAL SERVER ERROR` |
+
+Made with ❤ by Tim CC (Cobo Canaeru)
   
 

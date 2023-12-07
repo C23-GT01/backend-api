@@ -999,24 +999,29 @@ POST /umkm
 ```http
 PUT /umkm
 ```
-- Response
+- Headers
+```http
+Authorization: Bearer <access_token>
+Content-Type: application/json
+```
+- Request Body
 ```javascript
 {
-  "status": string,
-  "message": string,
+  "image": string,
+  "name": string,
+  "logo": string,
+  "description": string,
+  "location": object,
+  "history": object
+  "impact": array
+  "contact" : array
 }
 ```
-- Example Response
-```json
-{
-  "status": "success",
-  "message": "Profil UMKM berhasil diupdate",
-}
-```
-- Body
+- Example Request Body
 ```json
 {
   "image": "http://a.jpg",
+  "logo": "http://a.jpg",
   "name": "PT Sambal 2",
   "description": "lorem100",
   "location": "jshak hdak",
@@ -1053,6 +1058,25 @@ PUT /umkm
     ]
   }
 ```
+
+- Response
+```javascript
+{
+    "error": bool,
+    "status": string,
+    "message": string
+}
+```
+- Example Response
+```json
+{
+    "error": false,
+    "status": "success",
+    "message": "Profil UMKM berhasil diupdate"
+}
+
+```
+
 
 ## Delete UMKM
 - Path

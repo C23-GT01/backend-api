@@ -3,6 +3,7 @@
 - [Endpoint](#Endpoint)
 - [Account](#Account)
   - [Register](#Register)
+  - [Login](#Login)
 - [Product](#Product)
   - [Get All Product](#Get-All-Product)
   - [Get Detail Product](#Get-Detail-Product)
@@ -79,7 +80,7 @@ POST /users
 ## Login
 - Path
 ```http
-POST /users
+POST /authentications
 ```
 - Body Request
 ```javascript

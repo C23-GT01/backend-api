@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "bucket-tracmate-01",
+  "private_key_id": "0e06f36eee8c5f774843bcfba61f099ac42abda6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCn3wnConrZESFx\nzx3Mk7x57kONzrtuK/h9EKu+sLr0aY0+df0S87kxH7p1OQ0lAvYlPydjnDKISPNb\nRcnQu7lB33CTcU9UMjqJyewMm4V6GKoKUM5EXHRnFb4vhYzhUGurWaNgRXQB4uYD\n5W6TcFwIFpuwK4OW+Gqb52aAY3qD3qBkK2RlLFO9VcQ8iLRk48iduw9x5faBEWmR\nMNxbISbeoowzLKLSRiEZz08iEYgeGyxkBlezhTV8ewBu/Lghn2V5tfV8TX/PtSuz\n73REm+wTfGXpCYTd0Ze0FAMqGZOGSWbp2v9yLCbe4j3R1nuTVjflyOG59bt0cGNV\nTOPMFYodAgMBAAECggEACzEUPEDrWkXpWiZSCQXPcryXDeD6v3dYf3QJUzMCn9Fa\nrI+esfEER3ljS7XkQbOvF+AcPuiWuN3ONadTM2KUkQb1wSq0fHtFylJnNZb3wOJc\nkcf93HJig03gilgHwqzDJN8axIwU1hxbs+ZLpzI+PH7PXeEkyn+g0eiNPaGENT7a\nWVoQR2ICKxrcBeKGkIbkiojxtWihYMaVHL24s8HWx12zm9LO90Cs1sqNXWvA8OnF\nDLIGu1tGFP+l0bO73xBHOVkM5RKuGVhLfXjKGpU8H9izlYQXcXlq/DDnKMJV1Drw\neJhcqsC4s5NXbP1CakWEJSgSAgfgU+FPM6CTWZL4CQKBgQDnS8O/m9YqXeimO3OU\n/ozcu6oTlwyHhuXq09/Ao+WMfjM5+2s5+6QeCFGVXv2PsZTFylC/vUStZnUgU3Bo\nB6JOcMDRdAKs8I789YKL4dignNEAQNFFfSRXZ15tH4PBNKWaxkQJ56HFmI/s7qmF\nbmzZANCCWAh0lBRtpTT8g2Ld9QKBgQC5zRODev9xiTNANQzVv1ebGsTYRPA1bnJW\nqKTS6tWubqT2hV1Rkvdfxr/o9XlmZ5dKukga+pomi3wq0f+OwxqHp5tSG3J+na36\nQn0Lk8xwAU6E8l8REm+skemFetTy0Y7l2AvGWpNRXUlstqope6U4IEvAxR0yvDrK\n0UEjbw56iQKBgHbpJ7jxiDh90SbtN63o9EhjHrw1ktZ2Tuvcg5NJb7E8DGAJ1wWX\nTre19SODE371gBPzwHHi/1TacOrumsKQ8iu7ohXMu7dncUuxeK0rrjBcjsK/kBdW\nkAFzfkNByX3h8CXTOpWRBUVN+uiHhpW3wLQLzCbG1YoBu0LnhYcwkPqlAoGAYBpM\n35L9EVKv6aQG8YA45gcgjeSKgniQN3afWmERCVo9hS1SKWFlBmsc1HgzxN4MCSD1\nLs80cH9xSAy6rLMJw+TTl9KOlCMm2+0MFLLr6Xsji+x5c7EfhhkqulngT4BI82We\nIYiz7j/cPJj2xuIngTJjPGA4TAfEOSenE5bb3FECgYB5judVR4bPcNGClbOzXs9a\n1tlv0A4fRWZYcNGyOUtHtC3ei5pryrKSV86ffvJR0qiqIHmIsApyydLyNYoPpWB+\n03bYEAkybI+I4Hm8IPIyARrODTeXanO2+qx5qUSRqURW7k+iaFpb9tSLEYYBlxDf\n4Ypnr08FbI8NxR/xcSnF4w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "uploader@bucket-tracmate-01.iam.gserviceaccount.com",
+  "client_id": "107619309548182472745",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/uploader%40bucket-tracmate-01.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

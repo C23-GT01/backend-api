@@ -1,15 +1,7 @@
-const ClientError = require('../../exceptions/ClientError');
-
 class UMKMHandler {
   constructor(service, validator) {
     this._service = service;
     this._validator = validator;
-
-    this.getDetailUMKMHandler = this.getDetailUMKMHandler.bind(this);
-    this.getAllUmkmHandler = this.getAllUmkmHandler.bind(this);
-    this.postUMKMHandler = this.postUMKMHandler.bind(this);
-    this.putUMKMHandler = this.putUMKMHandler.bind(this);
-    this.deleteUmkmByIdHandler = this.deleteUmkmByIdHandler.bind(this);
   }
 
   async getAllUmkmHandler() {
@@ -20,170 +12,104 @@ class UMKMHandler {
       count: umkm.length,
       status: 'success',
       data: {
-        umkm,
+        umkm: umkm.map((item) => (
+          {
+            id: item.id,
+            logo: item.logo,
+            name: item.name,
+            location: item.location,
+          }
+        )),
       },
     };
   }
 
   async getDetailUMKMHandler(request, h) {
-    try {
-      const { id } = request.params;
+    const { id } = request.params;
 
-      const umkm = await this._service.getUmkmById(id);
+    const umkm = await this._service.getUmkmById(id);
 
-      return {
-        error: false,
-        status: 'success',
-        data: {
-          umkm,
-        },
-      };
-    } catch (error) {
-      if (error instanceof ClientError) {
-        const response = h.response({
-          status: 'fail',
-          message: error.message,
-        });
-        response.code(error.statusCode);
-        return response;
-      }
+    return {
+      error: false,
+      status: 'success',
+      data: {
+        umkm,
+      },
+    };
+  }
 
-      // Server ERROR!
-      const response = h.response({
-        status: 'error',
-        message: 'Maaf, terjadi kegagalan pada server kami.',
-      });
-      response.code(500);
-      console.error(error);
-      return response;
-    }
+  async getProfileUMKMHandler(request, h) {
+    const { id } = request.auth.credentials;
+
+    const umkm = await this._service.getUmkmByOwner(id);
+
+    return {
+      error: false,
+      status: 'success',
+      data: {
+        umkm,
+      },
+    };
   }
 
   async postUMKMHandler(request, h) {
-    try {
-      this._validator.validateUmkmPayload(request.payload);
-      const {
-        image, logo, name, description, location,
-        history, impact, contact, employe,
-      } = request.payload;
+    this._validator.validateUmkmPayload(request.payload);
+    const {
+      image, logo, name, description, location,
+      history, impact, contact, employe, isApprove,
+    } = request.payload;
 
-      const { id: owner } = request.auth.credentials;
+    const { id: owner } = request.auth.credentials;
 
-      const umkmId = await this._service.addUmkm({
-        image,
-        logo,
-        name,
-        description,
-        location,
-        history,
-        impact,
-        contact,
-        employe,
-        owner,
-      });
+    const umkmId = await this._service.addUmkm({
+      image,
+      logo,
+      name,
+      description,
+      location,
+      history,
+      impact,
+      contact,
+      employe,
+      isApprove,
+      owner,
+    });
 
-      const response = h.response({
-        error: false,
-        status: 'success',
-        message: 'UMKM berhasil didaftarkan',
-        data: {
-          umkmId,
-        },
-      });
-      response.code(201);
-      return response;
-    } catch (error) {
-      if (error instanceof ClientError) {
-        const response = h.response({
-          status: 'fail',
-          message: error.message,
-        });
-        response.code(error.statusCode);
-        return response;
-      }
-
-      // Server ERROR!
-      const response = h.response({
-        status: 'error',
-        message: 'Maaf, terjadi kegagalan pada server kami.',
-      });
-      response.code(500);
-      console.error(error);
-      return response;
-    }
+    const response = h.response({
+      error: false,
+      status: 'success',
+      message: 'UMKM berhasil didaftarkan',
+      data: {
+        umkmId,
+      },
+    });
+    response.code(201);
+    return response;
   }
 
   async putUMKMHandler(request, h) {
     this._validator.validateUmkmPayload(request.payload);
-    try {
-      const { id } = request.params;
 
-      const { id: credentialId } = request.auth.credentials;
+    const { id } = request.auth.credentials;
+    await this._service.editUmkmById(id, request.payload);
 
-      await this._service.verifyUmkmOwner(id, credentialId);
-
-      await this._service.editUmkmById(id, request.payload);
-
-      return {
-        error: false,
-        status: 'success',
-        message: 'Profil UMKM berhasil diupdate',
-      };
-    } catch (error) {
-      if (error instanceof ClientError) {
-        const response = h.response({
-          status: 'fail',
-          message: error.message,
-        });
-        response.code(error.statusCode);
-        return response;
-      }
-
-      // Server ERROR!
-      const response = h.response({
-        status: 'error',
-        message: 'Maaf, terjadi kegagalan pada server kami.',
-      });
-      response.code(500);
-      console.error(error);
-      return response;
-    }
+    return {
+      error: false,
+      status: 'success',
+      message: 'Profil UMKM berhasil diupdate',
+    };
   }
 
   async deleteUmkmByIdHandler(request, h) {
-    try {
-      const { id } = request.params;
+    const { id } = request.auth.credentials;
 
-      const { id: credentialId } = request.auth.credentials;
+    await this._service.deleteUmkmById(id);
 
-      await this._service.verifyUmkmOwner(id, credentialId);
-
-      await this._service.deleteUmkmById(id);
-
-      return {
-        error: false,
-        status: 'success',
-        message: 'Umkm berhasil dihapus',
-      };
-    } catch (error) {
-      if (error instanceof ClientError) {
-        const response = h.response({
-          status: 'fail',
-          message: error.message,
-        });
-        response.code(error.statusCode);
-        return response;
-      }
-
-      // Server ERROR!
-      const response = h.response({
-        status: 'error',
-        message: 'Maaf, terjadi kegagalan pada server kami.',
-      });
-      response.code(500);
-      console.error(error);
-      return response;
-    }
+    return {
+      error: false,
+      status: 'success',
+      message: 'Umkm berhasil dihapus',
+    };
   }
 }
 

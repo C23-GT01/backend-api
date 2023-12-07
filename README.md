@@ -83,7 +83,7 @@ POST /users
 ```
 
 ## Login
-> Login refers to get `access token` and `refreh token`
+> Login refers to get `access token` and `refresh token`
 - Path
 ```http
 POST /authentications

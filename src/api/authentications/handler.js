@@ -18,8 +18,9 @@ class AuthenticationsHandler {
     await this._authenticationsService.addRefreshToken(refreshToken);
 
     const response = h.response({
+      error: false,
       status: 'success',
-      message: 'Authentication berhasil ditambahkan',
+      message: 'Login berhasil',
       data: {
         accessToken,
         refreshToken,
@@ -38,6 +39,7 @@ class AuthenticationsHandler {
 
     const accessToken = this._tokenManager.generateAccessToken({ id });
     return {
+      error: false,
       status: 'success',
       message: 'Access Token berhasil diperbarui',
       data: {
@@ -54,6 +56,7 @@ class AuthenticationsHandler {
     await this._authenticationsService.deleteRefreshToken(refreshToken);
 
     return {
+      error: false,
       status: 'success',
       message: 'Refresh token berhasil dihapus',
     };

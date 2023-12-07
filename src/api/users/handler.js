@@ -6,9 +6,18 @@ class UsersHandler {
 
   async postUserHandler(request, h) {
     this._validator.validateUserPayload(request.payload);
-    const { username, password, fullname } = request.payload;
+    const {
+      username, email, image, role, password, fullname,
+    } = request.payload;
 
-    const userId = await this._service.addUser({ username, password, fullname });
+    const userId = await this._service.addUser({
+      username,
+      email,
+      image,
+      role,
+      password,
+      fullname,
+    });
 
     const response = h.response({
       error: false,
@@ -33,6 +42,44 @@ class UsersHandler {
       data: {
         user,
       },
+    };
+  }
+
+  async getUserProfileHandler(request, h) {
+    const { id } = request.auth.credentials;
+
+    const user = await this._service.getUserById(id);
+
+    return {
+      error: false,
+      status: 'success',
+      data: {
+        user,
+      },
+    };
+  }
+
+  async putUserHandler(request, h) {
+    const { id } = request.auth.credentials;
+
+    await this._service.editProfile(id, request.payload);
+
+    return {
+      error: false,
+      status: 'success',
+      message: 'Profil berhasil diperbarui',
+    };
+  }
+
+  async deleteUserHandler(request, h) {
+    const { id } = request.auth.credentials;
+
+    await this._service.deleteUserById(id);
+
+    return {
+      error: false,
+      status: 'success',
+      message: 'Akun berhasil dihapus',
     };
   }
 }

@@ -12,6 +12,17 @@ const routes = (handler) => [
     path: '/products',
     handler: (request, h) => handler.getAllProductsHandler(request, h),
   },
+
+  {
+    method: 'GET',
+    path: '/products/category/{id}',
+    handler: (request, h) => handler.getAllProductsbyCategoryHandler(request, h),
+  },
+  {
+    method: 'GET',
+    path: '/products/search/{keyword}',
+    handler: (request, h) => handler.getAllProductsbyKeywordHandler(request, h),
+  },
   {
     method: 'GET',
     path: '/products/{id}',

@@ -96,6 +96,28 @@ class ProductService {
     return mapDBToModel(result.rows[0], resultWithUmkm.rows[0], resources);
   }
 
+  async getProductByCategory(id) {
+    const query = {
+      text: 'SELECT * FROM products WHERE category = $1',
+      values: [id],
+    };
+
+    const result = await this._pool.query(query);
+
+    return result.rows.map(mapDBToModel);
+  }
+
+  async getProductByKeyword(keyword) {
+    const query = {
+      text: 'SELECT * FROM products WHERE name LIKE  $1',
+      values: [`%${keyword}%`],
+    };
+
+    const result = await this._pool.query(query);
+
+    return result.rows.map(mapDBToModel);
+  }
+
   async getProductByIdUmkm(id) {
     const query = {
       text: 'SELECT * FROM products WHERE umkm = $1',

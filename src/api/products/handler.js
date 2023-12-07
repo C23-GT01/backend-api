@@ -57,6 +57,48 @@ class ProductsHandler {
     };
   }
 
+  async getAllProductsbyCategoryHandler(request, h) {
+    const { id } = request.params;
+
+    const products = await this._service.getProductByCategory(id);
+    return {
+      error: false,
+      status: 'success',
+      message: 'Menampilkan Product berdasakan Kategori',
+      count: products.length,
+      data: {
+        products: products.map((product) => ({
+          id: product.id,
+          name: product.name,
+          image: product.image,
+          price: product.price,
+          category: product.category,
+        })),
+      },
+    };
+  }
+
+  async getAllProductsbyKeywordHandler(request, h) {
+    const { keyword } = request.params;
+
+    const products = await this._service.getProductByKeyword(keyword);
+    return {
+      error: false,
+      status: 'success',
+      message: `Menampilkan hasil pencarian untuk '${keyword}'`,
+      count: products.length,
+      data: {
+        products: products.map((product) => ({
+          id: product.id,
+          name: product.name,
+          image: product.image,
+          price: product.price,
+          category: product.category,
+        })),
+      },
+    };
+  }
+
   async getProductByIdHandler(request, h) {
     const { id } = request.params;
 

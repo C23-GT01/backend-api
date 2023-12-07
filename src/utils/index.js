@@ -46,6 +46,22 @@ const mapResourceToModel = ({
   updatedAt: updated_at,
 });
 
+const mapImpactToModel = ({
+  id,
+  name,
+  image,
+  description,
+  created_at,
+  updated_at,
+}) => ({
+  id,
+  name,
+  image,
+  description,
+  createdAt: created_at,
+  updatedAt: updated_at,
+});
+
 const mapUmkmToModel = ({
   id,
   image,
@@ -76,4 +92,9 @@ const mapUmkmToModel = ({
   updatedAt: updated_at,
 });
 
-module.exports = { mapDBToModel, mapUmkmToModel, mapResourceToModel };
+module.exports = {
+  mapDBToModel,
+  mapUmkmToModel,
+  mapResourceToModel,
+  mapImpactToModel,
+};

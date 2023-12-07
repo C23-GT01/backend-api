@@ -11,6 +11,8 @@
   - [Delete Account](#Delete-Account)
 - [Product](#Product)
   - [Get All Product](#Get-All-Product)
+  - [Search](#Search)
+  - [Filter by Category](#Filter-by-Category)
   - [Get Detail Product](#Get-Detail-Product)
   - [Get All Product by ID UMKM](#Get-All-Product-by-id-UMKM)
   - [Add Product](#Add-Product)
@@ -374,6 +376,103 @@ GET /products
                 "price": 50000,
                 "category": 3
             }
+        ]
+    }
+}
+```
+
+## Search
+
+- Path
+```http
+GET /products/search/:keyword
+```
+- Response
+```javascript
+{
+  "error"   : bool,
+  "status"  : string,
+  "message" : string,
+  "count"   : int,
+  "data"    : object,
+}
+```
+
+- Example Response
+```json
+{
+    "error"   : false,
+    "status"  : "success",
+    "message" : "Menampilkan hasil pencarian untuk 'sambal' ",
+    "count"   : 3,
+    "data"    : {
+        "products": [
+            {
+                "id": "product-3_PabLrYn6okMUwr",
+                "name": "Sambal baby cumy",
+                "image": "https://picsum.photos/200",
+                "price": 10000,
+                "category": 1
+            },
+            {
+                "id": "product--4PQjQTklQLDLsB2",
+                "name": "Sambal goreng",
+                "image": "https://picsum.photos/200",
+                "price": 30000,
+                "category": 2
+            },
+            {
+                "id": "product-IKqPltKAqIRWSNPw",
+                "name": "Samabal teri",
+                "image": "https://picsum.photos/200",
+                "price": 50000,
+                "category": 3
+            }
+        ]
+    }
+}
+```
+
+## Filter by Category
+
+- Path
+```http
+GET /products/category/:id
+```
+- Response
+```javascript
+{
+  "error"   : bool,
+  "status"  : string,
+  "message" : string,
+  "count"   : int,
+  "data"    : object,
+}
+```
+
+- Example Response
+```json
+{
+    "error"   : false,
+    "status"  : "success",
+    "message" : "Menampilkan semua produk",
+    "count"   : 3,
+    "data"    : {
+        "products": [
+            {
+                "id": "product-3_PabLrYn6okMUwr",
+                "name": "Product 1",
+                "image": "https://picsum.photos/200",
+                "price": 10000,
+                "category": 1
+            },
+            {
+                "id": "product--4PQjQTklQLDLsB2",
+                "name": "Product 2",
+                "image": "https://picsum.photos/200",
+                "price": 30000,
+                "category": 1
+            },
         ]
     }
 }

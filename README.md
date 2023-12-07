@@ -935,9 +935,27 @@ GET /umkm/:id
 ```http
 POST /umkm
 ```
+- Headers
+```http
+Authorization: Bearer <access_token>
+Content-Type: application/json
+```
+- Request Body
+```json
+{
+  "name": string,
+}
+```
+- Example Request Body
+```json
+{
+  "name": "Sambal mamo",
+}
+```
 - Response
 ```javascript
 {
+  "error": bool,
   "status": string,
   "message": string,
   "data": object,
@@ -946,53 +964,15 @@ POST /umkm
 - Example Response
 ```json
 {
+  "error": false,
   "status": "success",
   "message": "UMKM berhasil didaftarkan",
   "data": {
-    "umkmId": 1
+    "umkmId": "umkm-djjhfsjd"
   }
 }
 ```
-- Body
-```json
-{
-  "image": "http://a.jpg",
-  "name": "PT Sambal",
-  "description": "lorem100",
-  "location": "jshak hdak",
-  "history": {
- 		"image": "http://a.jpg",
-     	 	"text": "sambal kuning"
-},
-  "impact": [
-        {
-          "name": "batu",
-          "image": "https://image.com/",
-          "deskripsi": "lorem 100"
-        },
-        {
-          "name": "batu",
-          "image": "https://image.com/",
-          "deskripsi": "lorem 100"
-        },
-        {
-          "name": "batu",
-          "image": "https://image.com/",
-          "deskripsi": "lorem 100"
-        }
-      ],
-	  "contact" : [
-  	  {
-      "name": "whatsapp",
-          "deskripsi": "08123456789"
-        },
-        {
-      "name": "email",
-          "deskripsi": "sambal@gmail.com"
-      }
-    ]
-  }
-```
+
 
 ## Edit UMKM
 - Path
@@ -1012,8 +992,8 @@ Content-Type: application/json
   "logo": string,
   "description": string,
   "location": object,
-  "history": object
-  "impact": array
+  "history": object,
+  "impact": array,
   "contact" : array
 }
 ```

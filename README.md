@@ -6,6 +6,9 @@
   - [Login](#Login)
   - [User Login Profile](#User-Login-Profile)
   - [Edit Profile](#Edit-Profile)
+  - [Update Acces Token](#Update-Acces-Token)
+  - [Logout](#Logout)
+  - [Delete Account](#Delete-Account)
 - [Product](#Product)
   - [Get All Product](#Get-All-Product)
   - [Get Detail Product](#Get-Detail-Product)
@@ -80,6 +83,7 @@ POST /users
 ```
 
 ## Login
+> Login refers to get `access token` and `refreh token`
 - Path
 ```http
 POST /authentications
@@ -123,6 +127,7 @@ POST /authentications
     }
 }
 ```
+
 ## User Login Profile
 - Path
 ```http
@@ -212,6 +217,112 @@ Content-Type: application/json
 }
 ```
 
+## Update Acces Token
+> for security `access token` will be deleted in a short time, so use update `refresh token` to get it again.
+- Path
+```http
+PUT /authentications
+```
+- Body Request
+```javascript
+{
+    "refreshToken": string
+}
+```
+- Example Body Request
+```json
+{
+    "refreshToken": "......hjudsmm8_%gsguysk"
+}
+```
+
+- Response
+```javascript
+{
+    "error": bool,
+    "status": string,
+    "message": string,
+    "data": {
+        "accessToken": string
+    }
+}
+```
+- Example Response
+```json
+{
+    "error": false,
+    "status": "success",
+    "message": "Access Token berhasil diperbarui",
+    "data": {
+        "accessToken": "...............or2exHV-mtoARUYYuNub5YR4AoXA4"
+    }
+}
+```
+
+## Logout
+> Logout refers to delete `refreh token`
+- Path
+```http
+DELETE /authentications
+```
+- Body Request
+```javascript
+{
+    "refreshToken": string
+}
+```
+- Example Body Request
+```json
+{
+    "refreshToken": "......hjudsmm8_%gsguysk"
+}
+```
+
+- Response
+```javascript
+{
+    "error": bool,
+    "status": string,
+    "message": string
+}
+```
+- Example Response
+```json
+{
+    "error": false,
+    "status": "success",
+    "message": "Refresh token berhasil dihapus"
+}
+```
+
+## Delete Account
+> delete acount not delete refresh token, so please send request to [`delete refresh token`](#Logout) also to logout after delete account 
+- Path
+```http
+DELETE /users
+```
+- Headers
+```http
+Authorization: Bearer <access_token>
+Content-Type: application/json
+```
+
+- Response
+```javascript
+{
+    "error": bool,
+    "status": string,
+    "message": string
+}
+```
+- Example Response
+```json
+{
+    "error": false,
+    "status": "success",
+    "message": "Akun berhasil dihapus"
+}
+```
 
   
 # Product

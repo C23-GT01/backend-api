@@ -76,6 +76,49 @@ POST /users
 }
 ```
 
+## Login
+- Path
+```http
+POST /users
+```
+- Body Request
+```javascript
+{
+    "username": string,
+    "password": string,
+}
+```
+- Example Body Request
+```json
+{
+    "username": "user1",
+    "password": "123user",
+}
+```
+
+- Response
+```javascript
+{
+    "status": "success",
+    "message": "Login berhasil",
+    "data": {
+        "accessToken": string,
+        "refreshToken": string
+    }
+}
+```
+- Example Response
+```json
+{
+    "status": "success",
+    "message": "Login berhasil",
+    "data": {
+        "accessToken": "......PNCc3eAbhRycNDbc",
+        "refreshToken": "......_H5GczcpSr2HXk0"
+    }
+}
+```
+
   
 # Product
 ## Get All Product

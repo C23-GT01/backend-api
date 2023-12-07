@@ -29,7 +29,10 @@
   - [Server Error](#Server-Error)
 - [Status Codes](#Status-Codes)
 # Endpoint
-- Production `coming soon`
+- Production
+```
+https://c23-gt01-01.et.r.appspot.com/
+```
 - Development
 ```
 http://localhost:5000

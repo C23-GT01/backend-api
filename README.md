@@ -127,6 +127,11 @@ POST /authentications
 ```http
 POST /users/profile
 ```
+- Headers
+```http
+Authorization: Bearer <access_token>
+Content-Type: application/json
+```
 
 - Response
 ```javascript

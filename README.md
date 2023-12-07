@@ -25,7 +25,7 @@
 - [Error Handling](#Error-Handling)
   - [Client Error](#Client-Error)
   - [Server Error](#Server-Error)
-- [Status Code](#Status-Code)
+- [Status Codes](#Status-Codes)
 # Endpoint
 - Production `coming soon`
 - Development

@@ -11,13 +11,31 @@ class UmkmService {
   }
 
   async addUmkm({
-    image, logo, name, description, location, history, impact, contact, employe, owner,
+    name, owner,
   }) {
+    const umkmcheck = {
+      text: 'SELECT * FROM umkm WHERE owner = $1',
+      values: [owner],
+    };
+
+    const umkm = await this._pool.query(umkmcheck);
+    if (umkm.rows.length > 0) {
+      throw new InvariantError('UMKM sudah ada');
+    }
     const id = `Umkm-${nanoid(16)}`;
     const createAt = new Date().toISOString();
+    const image = 'https://i.ibb.co/0fr1VCg/image.jpg';
+    const logo = 'https://i.ibb.co/0fr1VCg/image.jpg';
+    const description = null;
+    const location = null;
+    const history = null;
+    const impact = null;
+    const contact = null;
+    const employe = null;
     const updateAt = createAt;
+    const isApprove = true;
     const query = {
-      text: 'INSERT INTO umkm VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id',
+      text: 'INSERT INTO umkm VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING id',
       values: [
         id,
         image,
@@ -29,6 +47,7 @@ class UmkmService {
         impact,
         contact,
         employe,
+        isApprove,
         owner,
         createAt,
         updateAt,
@@ -45,7 +64,7 @@ class UmkmService {
   }
 
   async getUmkm() {
-    const result = await this._pool.query('SELECT * FROM umkm');
+    const result = await this._pool.query('SELECT * FROM umkm WHERE is_approve = true');
 
     return result.rows.map(mapUmkmToModel);
   }
@@ -65,11 +84,26 @@ class UmkmService {
     return mapUmkmToModel(result.rows[0]);
   }
 
+  async getUmkmByOwner(id) {
+    const query = {
+      text: 'SELECT * FROM umkm WHERE owner = $1',
+      values: [id],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new NotFoundError('Umkm tidak ditemukan');
+    }
+
+    return mapUmkmToModel(result.rows[0]);
+  }
+
   async editUmkmById(id, {
     image, logo, name, description, location, history, impact, contact, employe,
   }) {
     const query = {
-      text: 'UPDATE umkm SET name = $2, image = $1, logo = $9, description = $3, location = $4, history = $5, impact = $6, contact = $7, employe = $10 WHERE id = $8 RETURNING id',
+      text: 'UPDATE umkm SET name = $2, image = $1, logo = $9, description = $3, location = $4, history = $5, impact = $6, contact = $7, employe = $10 WHERE owner = $8 RETURNING id',
       values: [image, name, description, location, history, impact, contact, id, logo, employe],
     };
 
@@ -82,7 +116,7 @@ class UmkmService {
 
   async deleteUmkmById(id) {
     const query = {
-      text: 'DELETE FROM umkm WHERE id = $1 RETURNING id',
+      text: 'DELETE FROM umkm WHERE owner = $1 RETURNING id',
       values: [id],
     };
 

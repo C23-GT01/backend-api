@@ -38,11 +38,25 @@ class UMKMHandler {
     };
   }
 
+  async getProfileUMKMHandler(request, h) {
+    const { id } = request.auth.credentials;
+
+    const umkm = await this._service.getUmkmByOwner(id);
+
+    return {
+      error: false,
+      status: 'success',
+      data: {
+        umkm,
+      },
+    };
+  }
+
   async postUMKMHandler(request, h) {
     this._validator.validateUmkmPayload(request.payload);
     const {
       image, logo, name, description, location,
-      history, impact, contact, employe,
+      history, impact, contact, employe, isApprove,
     } = request.payload;
 
     const { id: owner } = request.auth.credentials;
@@ -57,6 +71,7 @@ class UMKMHandler {
       impact,
       contact,
       employe,
+      isApprove,
       owner,
     });
 
@@ -74,12 +89,8 @@ class UMKMHandler {
 
   async putUMKMHandler(request, h) {
     this._validator.validateUmkmPayload(request.payload);
-    const { id } = request.params;
 
-    const { id: credentialId } = request.auth.credentials;
-
-    await this._service.verifyUmkmOwner(id, credentialId);
-
+    const { id } = request.auth.credentials;
     await this._service.editUmkmById(id, request.payload);
 
     return {
@@ -90,11 +101,7 @@ class UMKMHandler {
   }
 
   async deleteUmkmByIdHandler(request, h) {
-    const { id } = request.params;
-
-    const { id: credentialId } = request.auth.credentials;
-
-    await this._service.verifyUmkmOwner(id, credentialId);
+    const { id } = request.auth.credentials;
 
     await this._service.deleteUmkmById(id);
 

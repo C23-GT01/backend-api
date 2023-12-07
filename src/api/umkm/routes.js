@@ -18,8 +18,16 @@ const routes = (handler) => [
     handler: (request, h) => handler.getDetailUMKMHandler(request, h),
   },
   {
+    method: 'GET',
+    path: '/umkm/profile',
+    handler: (request, h) => handler.getProfileUMKMHandler(request, h),
+    options: {
+      auth: 'trackmate_jwt',
+    },
+  },
+  {
     method: 'PUT',
-    path: '/umkm/{id}',
+    path: '/umkm',
     handler: (request, h) => handler.putUMKMHandler(request, h),
     options: {
       auth: 'trackmate_jwt',
@@ -27,7 +35,7 @@ const routes = (handler) => [
   },
   {
     method: 'DELETE',
-    path: '/umkm/{id}',
+    path: '/umkm',
     handler: (request, h) => handler.deleteUmkmByIdHandler(request, h),
     options: {
       auth: 'trackmate_jwt',

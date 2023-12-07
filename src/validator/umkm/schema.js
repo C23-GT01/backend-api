@@ -1,11 +1,11 @@
 const Joi = require('joi');
 
 const UmkmPayloadSchema = Joi.object({
-  image: Joi.string().required(),
-  logo: Joi.string().required(),
+  image: Joi.string().allow(null),
+  logo: Joi.string().allow(null),
   name: Joi.string().required(),
   description: Joi.string().allow(null),
-  location: Joi.object().required(),
+  location: Joi.object().allow(null),
   history: Joi.object().allow(null),
   impact: Joi.array().allow(null),
   contact: Joi.array().allow(null),

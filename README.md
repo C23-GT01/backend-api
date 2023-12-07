@@ -4,6 +4,7 @@
 - [Account](#Account)
   - [Register](#Register)
   - [Login](#Login)
+  - [User Login Profile](#User-Login-Profile)
 - [Product](#Product)
   - [Get All Product](#Get-All-Product)
   - [Get Detail Product](#Get-Detail-Product)
@@ -37,7 +38,7 @@ POST /users
 {
     "username": string,
     "email": string,
-    "image": string, #optional
+    "image": string || null
     "role": string,
     "password": string,
     "fullname": string,
@@ -100,8 +101,9 @@ POST /authentications
 - Response
 ```javascript
 {
-    "status": "success",
-    "message": "Login berhasil",
+    "error" : bool
+    "status": string,
+    "message": string,
     "data": {
         "accessToken": string,
         "refreshToken": string
@@ -111,6 +113,7 @@ POST /authentications
 - Example Response
 ```json
 {
+    "error" : false
     "status": "success",
     "message": "Login berhasil",
     "data": {
@@ -119,7 +122,46 @@ POST /authentications
     }
 }
 ```
+## User Login Profile
+- Path
+```http
+POST /users/profile
+```
 
+- Response
+```javascript
+{
+    "error": bool,
+    "status": string,
+    "data": {
+        "user": {
+            "id": string,
+            "username": string,
+            "email": string,
+            "image": string || null,
+            "role": string,
+            "fullname": string
+        }
+    }
+}
+```
+- Example Response
+```json
+{
+    "error": false,
+    "status": "success",
+    "data": {
+        "user": {
+            "id": "user-a9vOKoZj3lfDar65",
+            "username": "user-1701908278",
+            "email": "user-1701908278@gmail.com",
+            "image": null, //will be null if not yet edited 
+            "role": "user",
+            "fullname": "User Trackamte"
+        }
+    }
+}
+```
   
 # Product
 ## Get All Product

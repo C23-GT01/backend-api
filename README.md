@@ -1171,6 +1171,6 @@ DELETE /umkm/:id
 | 404 | `NOT FOUND` |
 | 500 | `INTERNAL SERVER ERROR` |
 
-Made with ❤ by Tim CC (Cobo Canaeru)
+Made with ❤ by Tim CC (Cobo Canaeru) Eheek
   
 

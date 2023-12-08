@@ -13,17 +13,19 @@ class ImpactsService {
   async addImpact({
     name, image, description, owner,
   }) {
-    const id = `rsc-${nanoid(16)}`;
+    const id = `TMI-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const updateAt = createAt;
+    const isApprove = true;
 
     const query = {
-      text: 'INSERT INTO impacts VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id',
+      text: 'INSERT INTO impacts VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id',
       values: [
         id,
         name,
         image,
         description,
+        isApprove,
         owner,
         createAt,
         updateAt,

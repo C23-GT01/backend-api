@@ -14,7 +14,7 @@ class ProductService {
     image, name, price, description, resources,
     production, impact, contribution, category, owner,
   }) {
-    const id = `product-${nanoid(16)}`;
+    const id = `TMP-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const updateAt = createAt;
 
@@ -93,7 +93,17 @@ class ProductService {
       resources.push(resourceDetail);
     }
 
-    return mapDBToModel(result.rows[0], resultWithUmkm.rows[0], resources);
+    const impactIds = result.rows[0].impact;
+
+    const impacts = [];
+    // eslint-disable-next-line no-restricted-syntax
+    for (const impactId of impactIds) {
+      // eslint-disable-next-line no-await-in-loop
+      const impactDetail = await this.getImpactById(impactId);
+      impacts.push(impactDetail);
+    }
+
+    return mapDBToModel(result.rows[0], resultWithUmkm.rows[0], resources, impacts);
   }
 
   async getProductByCategory(id) {
@@ -189,6 +199,17 @@ class ProductService {
     const resourceResult = await this._pool.query(queryResource);
 
     return resourceResult.rows[0];
+  }
+
+  async getImpactById(impactId) {
+    const queryImpact = {
+      text: 'SELECT * FROM impacts WHERE id = $1',
+      values: [impactId],
+    };
+
+    const impactResult = await this._pool.query(queryImpact);
+
+    return impactResult.rows[0];
   }
 }
 

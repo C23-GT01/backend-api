@@ -22,7 +22,7 @@ class UmkmService {
     if (umkm.rows.length > 0) {
       throw new InvariantError('UMKM sudah ada');
     }
-    const id = `Umkm-${nanoid(16)}`;
+    const id = `TMU-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const image = 'https://i.ibb.co/0fr1VCg/image.jpg';
     const logo = 'https://i.ibb.co/0fr1VCg/image.jpg';

@@ -16,7 +16,7 @@ class UsersService {
     await this.verifyNewUsername(username);
     await this.verifyNewEmail(email);
 
-    const id = `user-${nanoid(16)}`;
+    const id = `TMA-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const updateAt = createAt;
     const hashedPassword = await bcrypt.hash(password, 10);

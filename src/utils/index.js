@@ -5,12 +5,11 @@ const mapDBToModel = ({
   price,
   description,
   production,
-  impact,
   contribution,
   category,
   created_at,
   updated_at,
-}, umkm, resources) => ({
+}, umkm, resources, impact) => ({
   id,
   name,
   image,
@@ -51,6 +50,7 @@ const mapImpactToModel = ({
   name,
   image,
   description,
+  is_approve,
   created_at,
   updated_at,
 }) => ({
@@ -58,6 +58,7 @@ const mapImpactToModel = ({
   name,
   image,
   description,
+  isApprove: is_approve,
   createdAt: created_at,
   updatedAt: updated_at,
 });

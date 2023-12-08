@@ -20,6 +20,7 @@ exports.up = (pgm) => {
       type: 'text',
       allowNull: true,
     },
+    is_approve: { type: 'bool', notNull: true },
     owner: {
       type: 'varchar(50)',
       notNull: true,

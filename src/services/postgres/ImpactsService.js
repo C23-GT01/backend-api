@@ -3,7 +3,8 @@ const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 const AuthorizationError = require('../../exceptions/AuthorizationError');
-const { mapImpactToModel } = require('../../utils');
+const AuthenticationError = require('../../exceptions/AuthenticationError');
+const { mapImpactToModel, mapImpactToModelWithOwner } = require('../../utils');
 
 class ImpactsService {
   constructor() {
@@ -51,6 +52,36 @@ class ImpactsService {
     return result.rows.map(mapImpactToModel);
   }
 
+  async getImpactsApprove(bool) {
+    if (typeof bool !== 'boolean') {
+      throw new InvariantError('Invalid parameter');
+    }
+
+    const query = {
+      text: 'SELECT * FROM impacts WHERE is_approve = $1',
+      values: [bool],
+    };
+    const result = await this._pool.query(query);
+
+    return result.rows.map(mapImpactToModelWithOwner);
+  }
+
+  async verifyIsAdmin(id) {
+    const query = {
+      text: 'SELECT role FROM users WHERE id = $1',
+      values: [id],
+    };
+
+    const result = await this._pool.query(query);
+
+    const { role } = result.rows[0];
+    if (role !== 'admin') {
+      throw new AuthenticationError('Acces denied');
+    }
+
+    return id;
+  }
+
   async getImpactById(id) {
     const query = {
       text: 'SELECT * FROM impacts WHERE id = $1',
@@ -82,6 +113,26 @@ class ImpactsService {
 
     if (!result.rows.length) {
       throw new NotFoundError('Gagal memperbarui Impact. Id tidak ditemukan');
+    }
+  }
+
+  async editImpactAprroveById(id) {
+    const query1 = {
+      text: 'SELECT is_approve FROM impacts WHERE id = $1',
+      values: [id],
+    };
+
+    const result1 = await this._pool.query(query1);
+    const isApprove = !result1.rows[0].is_approve;
+    const query = {
+      text: 'UPDATE impacts SET is_approve = $1 WHERE id = $2 RETURNING id',
+      values: [isApprove, id],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows.length) {
+      throw new NotFoundError('Gagal. Id tidak ditemukan');
     }
   }
 

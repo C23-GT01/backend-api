@@ -14,6 +14,11 @@ const routes = (handler) => [
   },
   {
     method: 'GET',
+    path: '/umkm/approve/{bool}',
+    handler: (request, h) => handler.getAllUmkmApproveHandler(request, h),
+  },
+  {
+    method: 'GET',
     path: '/umkm/{id}',
     handler: (request, h) => handler.getDetailUMKMHandler(request, h),
   },
@@ -26,9 +31,22 @@ const routes = (handler) => [
     },
   },
   {
+    method: 'GET',
+    path: '/users/umkm/{id}',
+    handler: (request, h) => handler.getUserUMKMHandler(request, h),
+  },
+  {
     method: 'PUT',
     path: '/umkm',
     handler: (request, h) => handler.putUMKMHandler(request, h),
+    options: {
+      auth: 'trackmate_jwt',
+    },
+  },
+  {
+    method: 'PUT',
+    path: '/umkm/approve/{id}',
+    handler: (request, h) => handler.putUMKMApproveByIdHandler(request, h),
     options: {
       auth: 'trackmate_jwt',
     },

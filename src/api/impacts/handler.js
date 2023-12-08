@@ -45,6 +45,23 @@ class ImpactsHandler {
     };
   }
 
+  async getAllImpactsApproveHandler(request) {
+    const { bool } = request.params;
+
+    const isApproved = bool === 'true';
+
+    const impacts = await this._service.getImpactsApprove(isApproved);
+    return {
+      error: false,
+      status: 'success',
+      message: 'Menampilkan impact filter by approve',
+      count: impacts.length,
+      data: {
+        impacts,
+      },
+    };
+  }
+
   async getImpactByIdHandler(request, h) {
     const { id } = request.params;
 
@@ -72,6 +89,21 @@ class ImpactsHandler {
       error: false,
       status: 'success',
       message: 'Impact berhasil diperbarui',
+    };
+  }
+
+  async putImpactApproveByIdHandler(request, h) {
+    const { id } = request.params;
+    const { id: credentialId } = request.auth.credentials;
+
+    await this._service.verifyIsAdmin(credentialId);
+
+    await this._service.editImpactAprroveById(id);
+
+    return {
+      error: false,
+      status: 'success',
+      message: 'Impact Approve diubah',
     };
   }
 

@@ -11,8 +11,8 @@ class UsersService {
   }
 
   async addUser({
-    username, email, image, role, password, fullname,
-  }) {
+    username, email, image, password, fullname,
+  }, role) {
     await this.verifyNewUsername(username);
     await this.verifyNewEmail(email);
 
@@ -28,7 +28,7 @@ class UsersService {
     const result = await this._pool.query(query);
 
     if (!result.rows.length) {
-      throw new InvariantError('User gagal ditambahkan');
+      throw new InvariantError(`${role} gagal ditambahkan`);
     }
     return result.rows[0].id;
   }
@@ -76,7 +76,7 @@ class UsersService {
 
   async verifyUserCredential(username, password) {
     const query = {
-      text: 'SELECT id, password FROM users WHERE username = $1',
+      text: 'SELECT id, role, password FROM users WHERE username = $1',
       values: [username],
     };
 
@@ -87,6 +87,36 @@ class UsersService {
 
     const { id, password: hashedPassword } = result.rows[0];
     const match = await bcrypt.compare(password, hashedPassword);
+
+    const { role } = result.rows[0];
+    if (role !== 'user') {
+      throw new AuthenticationError('Username / Password Salah');
+    }
+
+    if (!match) {
+      throw new AuthenticationError('Username / Password Salah');
+    }
+    return id;
+  }
+
+  async verifyUserCredentialAndRole(username, password) {
+    const query = {
+      text: 'SELECT id, role, password FROM users WHERE username = $1',
+      values: [username],
+    };
+
+    const result = await this._pool.query(query);
+    if (!result.rows.length) {
+      throw new AuthenticationError('Username / Password Salah');
+    }
+
+    const { id, password: hashedPassword } = result.rows[0];
+    const match = await bcrypt.compare(password, hashedPassword);
+
+    const { role } = result.rows[0];
+    if (role !== 'admin') {
+      throw new AuthenticationError('Username / Password Salah');
+    }
 
     if (!match) {
       throw new AuthenticationError('Username / Password Salah');

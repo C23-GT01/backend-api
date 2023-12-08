@@ -30,6 +30,30 @@ class AuthenticationsHandler {
     return response;
   }
 
+  async postAdminAuthenticationHandler(request, h) {
+    this._validator.validatePostAuthenticationPayload(request.payload);
+
+    const { username, password } = request.payload;
+    const id = await this._usersService.verifyUserCredentialAndRole(username, password);
+
+    const accessToken = this._tokenManager.generateAccessToken({ id });
+    const refreshToken = this._tokenManager.generateRefreshToken({ id });
+
+    await this._authenticationsService.addRefreshToken(refreshToken);
+
+    const response = h.response({
+      error: false,
+      status: 'success',
+      message: 'Login berhasil',
+      data: {
+        accessToken,
+        refreshToken,
+      },
+    });
+    response.code(201);
+    return response;
+  }
+
   async putAuthenticationHandler(request, h) {
     this._validator.validatePutAuthenticationPayload(request.payload);
 

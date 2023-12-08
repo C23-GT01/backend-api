@@ -3,6 +3,7 @@ const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 const AuthorizationError = require('../../exceptions/AuthorizationError');
+const AuthenticationError = require('../../exceptions/AuthenticationError');
 const { mapUmkmToModel } = require('../../utils');
 
 class UmkmService {
@@ -69,6 +70,34 @@ class UmkmService {
     return result.rows.map(mapUmkmToModel);
   }
 
+  async getUmkmApprove(bool) {
+    if (typeof bool !== 'boolean') {
+      throw new InvariantError('Invalid parameter');
+    }
+    const query = {
+      text: 'SELECT * FROM umkm WHERE is_approve = $1',
+      values: [bool],
+    };
+
+    const result = await this._pool.query(query);
+
+    return result.rows.map(mapUmkmToModel);
+  }
+
+  async verifyIsAdmin(id) {
+    const query = {
+      text: 'SELECT role FROM users WHERE id = $1',
+      values: [id],
+    };
+
+    const result = await this._pool.query(query);
+
+    const { role } = result.rows[0];
+    if (role !== 'admin') {
+      throw new AuthenticationError('Acces denied');
+    }
+  }
+
   async getUmkmById(id) {
     const query = {
       text: 'SELECT * FROM umkm WHERE id = $1',
@@ -124,6 +153,26 @@ class UmkmService {
 
     if (!result.rowCount) {
       throw new NotFoundError('Umkm gagal dihapus. Id tidak ditemukan');
+    }
+  }
+
+  async editUmkmAprroveById(id) {
+    const query1 = {
+      text: 'SELECT is_approve FROM umkm WHERE id = $1',
+      values: [id],
+    };
+
+    const result1 = await this._pool.query(query1);
+    const isApprove = !result1.rows[0].is_approve;
+    const query = {
+      text: 'UPDATE umkm SET is_approve = $1 WHERE id = $2 RETURNING id',
+      values: [isApprove, id],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows.length) {
+      throw new NotFoundError('Gagal. Id tidak ditemukan');
     }
   }
 

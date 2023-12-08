@@ -24,6 +24,32 @@ class UMKMHandler {
     };
   }
 
+  async getAllUmkmApproveHandler(request) {
+    const { bool } = request.params;
+
+    const isApproved = bool === 'true';
+
+    const umkm = await this._service.getUmkmApprove(isApproved);
+    return {
+      error: false,
+      message: 'Menampilkan UMKM filter by approve',
+      count: umkm.length,
+      status: 'success',
+      data: {
+        umkm: umkm.map((item) => (
+          {
+            id: item.id,
+            logo: item.logo,
+            name: item.name,
+            location: item.location,
+            isApprove: isApproved,
+            owner: item.owner,
+          }
+        )),
+      },
+    };
+  }
+
   async getDetailUMKMHandler(request, h) {
     const { id } = request.params;
 
@@ -40,6 +66,20 @@ class UMKMHandler {
 
   async getProfileUMKMHandler(request, h) {
     const { id } = request.auth.credentials;
+
+    const umkm = await this._service.getUmkmByOwner(id);
+
+    return {
+      error: false,
+      status: 'success',
+      data: {
+        umkm,
+      },
+    };
+  }
+
+  async getUserUMKMHandler(request, h) {
+    const { id } = request.params;
 
     const umkm = await this._service.getUmkmByOwner(id);
 
@@ -97,6 +137,21 @@ class UMKMHandler {
       error: false,
       status: 'success',
       message: 'Profil UMKM berhasil diupdate',
+    };
+  }
+
+  async putUMKMApproveByIdHandler(request, h) {
+    const { id } = request.params;
+    const { id: credentialId } = request.auth.credentials;
+
+    await this._service.verifyIsAdmin(credentialId);
+
+    await this._service.editUmkmAprroveById(id);
+
+    return {
+      error: false,
+      status: 'success',
+      message: 'UMKM Approve diubah',
     };
   }
 

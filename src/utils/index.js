@@ -63,6 +63,26 @@ const mapImpactToModel = ({
   updatedAt: updated_at,
 });
 
+const mapImpactToModelWithOwner = ({
+  id,
+  name,
+  image,
+  description,
+  is_approve,
+  owner,
+  created_at,
+  updated_at,
+}) => ({
+  id,
+  name,
+  image,
+  description,
+  isApprove: is_approve,
+  owner,
+  createdAt: created_at,
+  updatedAt: updated_at,
+});
+
 const mapUmkmToModel = ({
   id,
   image,
@@ -98,4 +118,5 @@ module.exports = {
   mapUmkmToModel,
   mapResourceToModel,
   mapImpactToModel,
+  mapImpactToModelWithOwner,
 };

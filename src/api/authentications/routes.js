@@ -14,6 +14,13 @@ const routes = (handler) => [
     path: '/authentications',
     handler: (request, h) => handler.deleteAuthenticationHandler(request, h),
   },
+
+  // admin
+  {
+    method: 'POST',
+    path: '/admin/authentications',
+    handler: (request, h) => handler.postAdminAuthenticationHandler(request, h),
+  },
 ];
 
 module.exports = routes;

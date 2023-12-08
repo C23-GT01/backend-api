@@ -7,22 +7,47 @@ class UsersHandler {
   async postUserHandler(request, h) {
     this._validator.validateUserPayload(request.payload);
     const {
-      username, email, image, role, password, fullname,
+      username, email, image, password, fullname,
     } = request.payload;
 
     const userId = await this._service.addUser({
       username,
       email,
       image,
-      role,
       password,
       fullname,
-    });
+    }, 'user');
 
     const response = h.response({
       error: false,
       status: 'success',
       message: 'User berhasil ditambahkan',
+      data: {
+        userId,
+      },
+    });
+    response.code(201);
+    return response;
+  }
+
+  async postAdminHandler(request, h) {
+    this._validator.validateUserPayload(request.payload);
+    const {
+      username, email, image, password, fullname,
+    } = request.payload;
+
+    const userId = await this._service.addUser({
+      username,
+      email,
+      image,
+      password,
+      fullname,
+    }, 'admin');
+
+    const response = h.response({
+      error: false,
+      status: 'success',
+      message: 'Admin berhasil ditambahkan',
       data: {
         userId,
       },

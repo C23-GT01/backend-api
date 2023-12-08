@@ -5,12 +5,11 @@ const mapDBToModel = ({
   price,
   description,
   production,
-  impact,
   contribution,
   category,
   created_at,
   updated_at,
-}, umkm, resources) => ({
+}, umkm, resources, impact) => ({
   id,
   name,
   image,
@@ -46,6 +45,44 @@ const mapResourceToModel = ({
   updatedAt: updated_at,
 });
 
+const mapImpactToModel = ({
+  id,
+  name,
+  image,
+  description,
+  is_approve,
+  created_at,
+  updated_at,
+}) => ({
+  id,
+  name,
+  image,
+  description,
+  isApprove: is_approve,
+  createdAt: created_at,
+  updatedAt: updated_at,
+});
+
+const mapImpactToModelWithOwner = ({
+  id,
+  name,
+  image,
+  description,
+  is_approve,
+  owner,
+  created_at,
+  updated_at,
+}) => ({
+  id,
+  name,
+  image,
+  description,
+  isApprove: is_approve,
+  owner,
+  createdAt: created_at,
+  updatedAt: updated_at,
+});
+
 const mapUmkmToModel = ({
   id,
   image,
@@ -76,4 +113,10 @@ const mapUmkmToModel = ({
   updatedAt: updated_at,
 });
 
-module.exports = { mapDBToModel, mapUmkmToModel, mapResourceToModel };
+module.exports = {
+  mapDBToModel,
+  mapUmkmToModel,
+  mapResourceToModel,
+  mapImpactToModel,
+  mapImpactToModelWithOwner,
+};

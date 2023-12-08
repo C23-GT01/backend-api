@@ -5,6 +5,11 @@ const routes = (handler) => [
     handler: (request, h) => handler.postUserHandler(request, h),
   },
   {
+    method: 'POST',
+    path: '/admin',
+    handler: (request, h) => handler.postAdminHandler(request, h),
+  },
+  {
     method: 'GET',
     path: '/users/{id}',
     handler: (request, h) => handler.getUserByIdHandler(request, h),

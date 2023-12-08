@@ -37,7 +37,7 @@ exports.up = (pgm) => {
       allowNull: true,
     },
     impact: {
-      type: 'jsonb[]',
+      type: 'TEXT[]',
       allowNull: true,
     },
     contribution: {

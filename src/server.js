@@ -21,6 +21,11 @@ const resources = require('./api/resources');
 const ResourcesService = require('./services/postgres/ResourcesService');
 const ResourcesValidator = require('./validator/resources');
 
+// impacts
+const impacts = require('./api/impacts');
+const ImpactsService = require('./services/postgres/ImpactsService');
+const ImpactsValidator = require('./validator/impacts');
+
 // users
 const users = require('./api/users');
 const UsersService = require('./services/postgres/UsersService');
@@ -40,6 +45,7 @@ const UploadsValidator = require('./validator/uploads');
 const init = async () => {
   const authenticationsService = new AuthenticationsService();
   const resourcesService = new ResourcesService();
+  const impactsService = new ImpactsService();
   const productsService = new ProductsService();
   const umkmsService = new UmkmsService();
   const usersService = new UsersService();
@@ -94,6 +100,13 @@ const init = async () => {
       options: {
         service: resourcesService,
         validator: ResourcesValidator,
+      },
+    },
+    {
+      plugin: impacts,
+      options: {
+        service: impactsService,
+        validator: ImpactsValidator,
       },
     },
     {

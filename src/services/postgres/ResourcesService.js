@@ -13,7 +13,7 @@ class ResourceService {
   async addResource({
     name, image, location, umkm, description, owner,
   }) {
-    const id = `rsc-${nanoid(16)}`;
+    const id = `TMR-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const updateAt = createAt;
 

@@ -11,7 +11,7 @@ exports.up = (pgm) => {
     description: { type: 'text', allowNull: true },
     location: { type: 'jsonb', allowNull: true },
     history: { type: 'jsonb', allowNull: true },
-    impact: { type: 'jsonb[]', allowNull: true },
+    impact: { type: 'text[]', allowNull: true },
     contact: { type: 'jsonb[]', allowNull: true },
     employe: { type: 'text', allowNull: true },
     is_approve: { type: 'bool', notNull: true },

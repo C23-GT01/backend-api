@@ -25,8 +25,8 @@ class UmkmService {
     }
     const id = `TMU-${nanoid(16)}`;
     const createAt = new Date().toISOString();
-    const image = 'https://i.ibb.co/0fr1VCg/image.jpg';
-    const logo = 'https://i.ibb.co/0fr1VCg/image.jpg';
+    const image = 'https://storage.googleapis.com/trackmate_bucket1/assets/images/placeholder.jpg';
+    const logo = 'https://storage.googleapis.com/trackmate_bucket1/assets/images/placeholder.jpg';
     const description = null;
     const location = null;
     const history = null;
@@ -110,7 +110,16 @@ class UmkmService {
       throw new NotFoundError('Umkm tidak ditemukan');
     }
 
-    return mapUmkmToModel(result.rows[0]);
+    const impactIds = result.rows[0].impact;
+    const impacts = [];
+    // eslint-disable-next-line no-restricted-syntax
+    for (const impactId of impactIds) {
+      // eslint-disable-next-line no-await-in-loop
+      const impactDetail = await this.getImpactById(impactId);
+      impacts.push(impactDetail);
+    }
+
+    return mapUmkmToModel(result.rows[0], impacts);
   }
 
   async getUmkmByOwner(id) {
@@ -125,7 +134,16 @@ class UmkmService {
       throw new NotFoundError('Umkm tidak ditemukan');
     }
 
-    return mapUmkmToModel(result.rows[0]);
+    const impactIds = result.rows[0].impact;
+    const impacts = [];
+    // eslint-disable-next-line no-restricted-syntax
+    for (const impactId of impactIds) {
+      // eslint-disable-next-line no-await-in-loop
+      const impactDetail = await this.getImpactById(impactId);
+      impacts.push(impactDetail);
+    }
+
+    return mapUmkmToModel(result.rows[0], impacts);
   }
 
   async editUmkmById(id, {
@@ -137,6 +155,7 @@ class UmkmService {
     };
 
     const result = await this._pool.query(query);
+    console.log('aku');
 
     if (!result.rowCount) {
       throw new NotFoundError('Gagal memperbarui Umkm. Id tidak ditemukan');
@@ -193,6 +212,17 @@ class UmkmService {
     if (note.owner !== owner) {
       throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
     }
+  }
+
+  async getImpactById(impactId) {
+    const queryImpact = {
+      text: 'SELECT * FROM impacts WHERE id = $1',
+      values: [impactId],
+    };
+
+    const impactResult = await this._pool.query(queryImpact);
+
+    return impactResult.rows[0];
   }
 }
 

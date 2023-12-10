@@ -520,7 +520,7 @@ GET /products/:id
                         "lng": 150.644,
                         "name": "Wonogiri, Jawa Tengah",
                     },
-                    "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
                 },
                 {
                     "name": "batu",
@@ -531,7 +531,7 @@ GET /products/:id
                         "lng" : 150.644,
                         "name": "Wonogiri, Jawa Tengah",
                     },
-                    "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
                 },
                 {
                     "name": "batu",
@@ -541,41 +541,41 @@ GET /products/:id
                         "lng": 150.644,
                         "name": "New York, US",
                     },
-                    "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
                 }
             ],
             "production": [
                 {
                     "name": "pengumpulan bahan baku",
                     "image": "https://picsum.photos/200",
-                    "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
                 },
                 {
                     "name": "penumbukan",
                     "image": "https://picsum.photos/200",
-                    "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
                 },
                 {
                     "name": "pengemasan",
                     "image": "https://picsum.photos/200",
-                    "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
                 }
             ],
             "impact": [
                 {
                     "name": "Impact 1",
                     "image": "https://picsum.photos/200",
-                    "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
                 },
                 {
                     "name": "Impact 2",
                     "image": "https://picsum.photos/200",
-                    "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
                 },
                 {
                     "name": "Impact 3",
                     "image": "https://picsum.photos/200",
-                    "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
                 }
             ],
             "contribution": [1,2,4],
@@ -689,7 +689,7 @@ Content-Type: application/json
     {
       "name": "cabai",
       "image": "https://picsum.photos/200",
-      "deskripsi": "pedas",
+      "description": "pedas",
       "location": {
         "name": "Wonogiri, Jawa Tengah",
         "lat ": -34.397,
@@ -700,7 +700,7 @@ Content-Type: application/json
     {
       "name": "batu",
       "image": "https://picsum.photos/200",
-      "deskripsi": "lorem100",
+      "description": "lorem100",
       "location": {
         "name": "Wonogiri, Jawa Tengah",
         "lat ": -34.397,
@@ -711,7 +711,7 @@ Content-Type: application/json
     {
       "name": "batu",
       "image": "https://picsum.photos/200",
-      "deskripsi": "lorem100",
+      "description": "lorem100",
       "location": {
         "name": "New York, US",
         "lat ": -34.397,
@@ -723,48 +723,48 @@ Content-Type: application/json
     {
       "name": "pengumpulan bahan baku",
       "image": "https://picsum.photos/200",
-      "deskripsi": "lorem100"
+      "description": "lorem100"
     },
     {
       "name": "penumbukan",
       "image": "https://picsum.photos/200",
-      "deskripsi": "lorem100"
+      "description": "lorem100"
     },
     {
       "name": "pengemasan",
       "image": "https://picsum.photos/200",
-      "deskripsi": "lorem100"
+      "description": "lorem100"
     }
   ],
   "impact": [
     {
       "name": "batu",
       "icon": 1,
-      "deskripsi": "lorem100"
+      "description": "lorem100"
     },
     {
       "name": "batu",
       "icon": 2,
-      "deskripsi": "lorem100"
+      "description": "lorem100"
     },
     {
       "name": "batu",
       "icon": 3,
-      "deskripsi": "lorem 100"
+      "description": "lorem 100"
     }
   ],
   "contribution": [
     {
       "icon": 1,
-      "deskripsi": "lorem 100"
+      "description": "lorem 100"
     },
     {
       "icon": 1,
-      "deskripsi": "lorem100"
+      "description": "lorem100"
     },
     {
       "icon": "https://picsum.photos/200",
-      "deskripsi": "lorem100"
+      "description": "lorem100"
     }
   ],
   "category": null
@@ -812,19 +812,19 @@ Content-Type: application/json
         {
           "name": "cabai",
           "image": "https://image.com/",
-          "deskripsi": "pedas",
+          "description": "pedas",
           "location": "koordinat"
         },
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem100",
+          "description": "lorem100",
           "location": "koordinat"
         },
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem100",
+          "description": "lorem100",
           "location": "koordinat"
         }
       ],
@@ -832,48 +832,48 @@ Content-Type: application/json
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem100"
+          "description": "lorem100"
         },
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem100"
+          "description": "lorem100"
         },
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem100"
+          "description": "lorem100"
         }
       ],
       "impact": [
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem100"
+          "description": "lorem100"
         },
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem100"
+          "description": "lorem100"
         },
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem100"
+          "description": "lorem100"
         }
       ],
       "contribution": [
         {
           "icon": "https://image.com/",
-          "deskripsi": "lorem100"
+          "description": "lorem100"
         },
         {
           "icon": "https://image.com/",
-          "deskripsi": "lorem100"
+          "description": "lorem100"
         },
         {
           "icon": "https://image.com/",
-          "deskripsi": "lorem100"
+          "description": "lorem100"
         }
       ]
     }
@@ -996,37 +996,37 @@ GET /umkm/:id
         {
           "name": "Carbon Footprint",
           "image": "https://i.ibb.co/0fr1VCg/image.jpg",
-          "deskripsi": "Meminimalisir potensi jejak karbon baik secara individu/kelompok"
+          "description": "Meminimalisir potensi jejak karbon baik secara individu/kelompok"
         },
         {
           "name": "Waste Management",
           "image": "https://i.ibb.co/0fr1VCg/image.jpg",
-          "deskripsi": "Melakukan tracing dalam upaya pengurangan limbah sekitar lingkungan usaha"
+          "description": "Melakukan tracing dalam upaya pengurangan limbah sekitar lingkungan usaha"
         },
         {
           "name": "Water Use",
           "image": "https://i.ibb.co/0fr1VCg/image.jpg",
-          "deskripsi": "Meniliki upaya efisiensi penggunaan air"
+          "description": "Meniliki upaya efisiensi penggunaan air"
         },
         {
           "name": "Product Lyfecycle",
           "image": "https://i.ibb.co/0fr1VCg/image.jpg",
-          "deskripsi": "Memiliki daur hidup produk agar membantu meminimalisir kerusakan lingkungan"
+          "description": "Memiliki daur hidup produk agar membantu meminimalisir kerusakan lingkungan"
         },
         {
           "name": "Health and Safety",
           "image": "https://i.ibb.co/0fr1VCg/image.jpg",
-          "deskripsi": "Mengukur kadar keamanan produk dalam penggunaan, keberlanjutan bahan baku dan pemanfaatan potensi daur ulang produk"
+          "description": "Mengukur kadar keamanan produk dalam penggunaan, keberlanjutan bahan baku dan pemanfaatan potensi daur ulang produk"
         },
         {
           "name": "Working Condition",
           "image": "https://i.ibb.co/0fr1VCg/image.jpg",
-          "deskripsi": "Menilik iklim komunikasi dalam lingkup pekerjaan dan sosial yang berkaitan dengan kesejahteraan dan kenyamanan pekerja"
+          "description": "Menilik iklim komunikasi dalam lingkup pekerjaan dan sosial yang berkaitan dengan kesejahteraan dan kenyamanan pekerja"
         },
         {
           "name": "Human Right",
           "image": "https://i.ibb.co/0fr1VCg/image.jpg",
-          "deskripsi": "Meninjau pemenuhan hak-hak pekerja dalam berbagai aspek dengan berlandaskan regulasi yang berlaku hingga dimungkinkan adanya standarisasi"
+          "description": "Meninjau pemenuhan hak-hak pekerja dalam berbagai aspek dengan berlandaskan regulasi yang berlaku hingga dimungkinkan adanya standarisasi"
         }
       ],
       "contact": [
@@ -1130,27 +1130,27 @@ Content-Type: application/json
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem 100"
+          "description": "lorem 100"
         },
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem 100"
+          "description": "lorem 100"
         },
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem 100"
+          "description": "lorem 100"
         }
       ],
 "contact" : [
 	{
 	"name": "whatsapp",
-	"deskripsi": "08123456789"
+	"description": "08123456789"
         },
         {
     	"name": "email",
-	"deskripsi": "sambal@gmail.com"
+	"description": "sambal@gmail.com"
         }
     ]
   }
@@ -1214,27 +1214,27 @@ Content-Type: application/json
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem 100"
+          "description": "lorem 100"
         },
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem 100"
+          "description": "lorem 100"
         },
         {
           "name": "batu",
           "image": "https://image.com/",
-          "deskripsi": "lorem 100"
+          "description": "lorem 100"
         }
       ],
 "contact" : [
 	{
 	"name": "whatsapp",
-	"deskripsi": "08123456789"
+	"description": "08123456789"
 	},
 	{
     	"name": "email",
-	"deskripsi": "sambal@gmail.com"
+	"description": "sambal@gmail.com"
         }
     ]
   }

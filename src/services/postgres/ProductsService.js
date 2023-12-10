@@ -119,7 +119,7 @@ class ProductService {
 
   async getProductByKeyword(keyword) {
     const query = {
-      text: 'SELECT * FROM products WHERE name LIKE  $1',
+      text: 'SELECT * FROM products WHERE name ILIKE  $1',
       values: [`%${keyword}%`],
     };
 

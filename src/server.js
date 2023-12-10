@@ -151,6 +151,7 @@ const init = async () => {
           error: true,
           status: 'fail',
           message: response.message,
+          data: null,
         });
 
         newResponse.code(response.statusCode);
@@ -166,6 +167,7 @@ const init = async () => {
         status: 'error',
         message: 'terjadi kegagalan pada server kami',
         stack: response.stack,
+        data: null,
       });
 
       newResponse.code(500);

@@ -12,7 +12,8 @@ class UmkmService {
   }
 
   async addUmkm({
-    name, owner,
+    logo,
+    name, owner, location, description, employe,
   }) {
     const umkmcheck = {
       text: 'SELECT * FROM umkm WHERE owner = $1',
@@ -26,13 +27,9 @@ class UmkmService {
     const id = `TMU-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const image = 'https://storage.googleapis.com/trackmate_bucket1/assets/images/placeholder.jpg';
-    const logo = 'https://storage.googleapis.com/trackmate_bucket1/assets/images/placeholder.jpg';
-    const description = null;
-    const location = null;
     const history = null;
-    const impact = null;
+    const impact = [];
     const contact = null;
-    const employe = null;
     const updateAt = createAt;
     const isApprove = true;
     const query = {
@@ -110,16 +107,14 @@ class UmkmService {
       throw new NotFoundError('Umkm tidak ditemukan');
     }
 
-    const impactIds = result.rows[0].impact;
-    const impacts = [];
-    // eslint-disable-next-line no-restricted-syntax
-    for (const impactId of impactIds) {
-      // eslint-disable-next-line no-await-in-loop
-      const impactDetail = await this.getImpactById(impactId);
-      impacts.push(impactDetail);
-    }
+    const query2 = {
+      text: 'SELECT * FROM impacts WHERE owner = $1',
+      values: [result.rows[0].owner],
+    };
 
-    return mapUmkmToModel(result.rows[0], impacts);
+    const impacts = await this._pool.query(query2);
+
+    return mapUmkmToModel(result.rows[0], impacts.rows);
   }
 
   async getUmkmByOwner(id) {
@@ -134,16 +129,13 @@ class UmkmService {
       throw new NotFoundError('Umkm tidak ditemukan');
     }
 
-    const impactIds = result.rows[0].impact;
-    const impacts = [];
-    // eslint-disable-next-line no-restricted-syntax
-    for (const impactId of impactIds) {
-      // eslint-disable-next-line no-await-in-loop
-      const impactDetail = await this.getImpactById(impactId);
-      impacts.push(impactDetail);
-    }
+    const query2 = {
+      text: 'SELECT * FROM impacts WHERE owner = $1',
+      values: [id],
+    };
 
-    return mapUmkmToModel(result.rows[0], impacts);
+    const impacts = await this._pool.query(query2);
+    return mapUmkmToModel(result.rows[0], impacts.rows);
   }
 
   async editUmkmById(id, {

@@ -330,6 +330,25 @@ Content-Type: application/json
 }
 ```
 
+# Machine Learning
+
+## Get
+- Path
+```http
+GET /recomendation
+```
+
+- Response
+```javascript
+{
+  "error"   : bool,
+  "status"  : string,
+  "message" : string,
+  "count"   : int,
+  "data"    : object,
+}
+```
+
   
 # Product
 ## Get All Product
@@ -346,6 +365,50 @@ GET /products
   "message" : string,
   "count"   : int,
   "data"    : object,
+}
+```
+
+- Example Response
+```json
+{
+    "error"   : false,
+    "status"  : "success",
+    "message" : "Menampilkan semua produk",
+    "count"   : 3,
+    "data"    : {
+        "recommended_products": [
+        {
+            "product_id": "B07YR26BJ3",
+            "product_name": "KENT 16052 Elegant Electric Glass Kettle 1.8L 2000 W | Blue LED Illumination | Borosilicate Glass Body | Boil Drying Protection | Used as Boiler | Milk | Tea | Water & Soup | 1 Year Warranty",
+            "rating_x": 4.0,
+            "product_link": "https://www.amazon.in/KENT-Elegant-Electric-Kettle-Silver/dp/B07YR26BJ3/ref=sr_1_29?qid=1672923592&s=kitchen&sr=1-29"
+        },
+        {
+            "product_id": "B09M3F4HGB",
+            "product_name": "Borosil Volcano 13 Fin Oil Filled Radiator Room Heater, 2900 W, Black",
+            "rating_x": 4.2,
+            "product_link": "https://www.amazon.in/Borosil-Volcano-Filled-Radiator-Heater/dp/B09M3F4HGB/ref=sr_1_371?qid=1672923611&s=kitchen&sr=1-371"
+        },
+        {
+            "product_id": "B09MFR93KS",
+            "product_name": "Bajaj Rex DLX 750 W 4 Jars Mixer Grinder, White and Blue",
+            "rating_x": 4.0,
+            "product_link": "https://www.amazon.in/Bajaj-Jars-Mixer-Grinder-White/dp/B09MFR93KS/ref=sr_1_447?qid=1672923614&s=kitchen&sr=1-447"
+        },
+        {
+            "product_id": "B018SJJ0GE",
+            "product_name": "Libra Roti Maker Electric Automatic | chapati Maker Electric Automatic | roti Maker Machine with 900 Watts for Making Roti/Chapati/Parathas - Stainless Steel",
+            "rating_x": 4.4,
+            "product_link": "https://www.amazon.in/Libra-Athena-Roti-Maker-Black/dp/B018SJJ0GE/ref=sr_1_455?qid=1672923614&s=kitchen&sr=1-455"
+        },
+        {
+            "product_id": "B07JGCGNDG",
+            "product_name": "Crompton Amica 15-L 5 Star Rated Storage Water Heater (Geyser) with Free Installation (White)",
+            "rating_x": 4.1,
+            "product_link": "https://www.amazon.in/Crompton-Greaves-ASWH-2015-15-Litre-Storage/dp/B07JGCGNDG/ref=sr_1_294_mod_primary_new?qid=1672923607&s=kitchen&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sr=1-294"
+        }
+    ]
+    }
 }
 ```
 

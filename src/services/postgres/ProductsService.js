@@ -61,6 +61,26 @@ class ProductService {
     return result.rows.map(mapDBToModel);
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  async getProductsRecomendation() {
+    const url = `${process.env.endpointML}/recommend`;
+
+    const requestBody = {
+      encoded_user_id: 13,
+    };
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    const result = await response.json();
+    return result;
+  }
+
   async getProductById(id) {
     const query = {
       text: 'SELECT * FROM products WHERE id = $1',
@@ -119,7 +139,7 @@ class ProductService {
 
   async getProductByKeyword(keyword) {
     const query = {
-      text: 'SELECT * FROM products WHERE name LIKE  $1',
+      text: 'SELECT * FROM products WHERE name ILIKE  $1',
       values: [`%${keyword}%`],
     };
 

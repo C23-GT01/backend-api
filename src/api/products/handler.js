@@ -57,6 +57,19 @@ class ProductsHandler {
     };
   }
 
+  async getProductsRecomendtionsHandler() {
+    const results = await this._service.getProductsRecomendation();
+    return {
+      error: false,
+      status: 'success',
+      message: 'Menampilkan semua produk',
+      count: results.length,
+      data: {
+        recommended_products: results.recommended_products,
+      },
+    };
+  }
+
   async getAllProductsbyCategoryHandler(request, h) {
     const { id } = request.params;
 

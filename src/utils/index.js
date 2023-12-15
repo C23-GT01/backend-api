@@ -91,13 +91,13 @@ const mapUmkmToModel = ({
   description,
   location,
   history,
-  impact,
   contact,
+  employe,
   is_approve,
   owner,
   created_at,
   updated_at,
-}) => ({
+}, impact) => ({
   id,
   image,
   logo,
@@ -107,6 +107,7 @@ const mapUmkmToModel = ({
   history,
   impact,
   contact,
+  employe,
   isApproved: is_approve,
   owner,
   createdAt: created_at,

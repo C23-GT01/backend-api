@@ -12,7 +12,8 @@ class UmkmService {
   }
 
   async addUmkm({
-    name, owner,
+    logo,
+    name, owner, location, description, employe,
   }) {
     const umkmcheck = {
       text: 'SELECT * FROM umkm WHERE owner = $1',
@@ -25,14 +26,10 @@ class UmkmService {
     }
     const id = `TMU-${nanoid(16)}`;
     const createAt = new Date().toISOString();
-    const image = 'https://i.ibb.co/0fr1VCg/image.jpg';
-    const logo = 'https://i.ibb.co/0fr1VCg/image.jpg';
-    const description = null;
-    const location = null;
+    const image = 'https://storage.googleapis.com/trackmate_bucket1/assets/images/placeholder.jpg';
     const history = null;
-    const impact = null;
+    const impact = [];
     const contact = null;
-    const employe = null;
     const updateAt = createAt;
     const isApprove = true;
     const query = {
@@ -110,7 +107,14 @@ class UmkmService {
       throw new NotFoundError('Umkm tidak ditemukan');
     }
 
-    return mapUmkmToModel(result.rows[0]);
+    const query2 = {
+      text: 'SELECT * FROM impacts WHERE owner = $1',
+      values: [result.rows[0].owner],
+    };
+
+    const impacts = await this._pool.query(query2);
+
+    return mapUmkmToModel(result.rows[0], impacts.rows);
   }
 
   async getUmkmByOwner(id) {
@@ -125,7 +129,13 @@ class UmkmService {
       throw new NotFoundError('Umkm tidak ditemukan');
     }
 
-    return mapUmkmToModel(result.rows[0]);
+    const query2 = {
+      text: 'SELECT * FROM impacts WHERE owner = $1',
+      values: [id],
+    };
+
+    const impacts = await this._pool.query(query2);
+    return mapUmkmToModel(result.rows[0], impacts.rows);
   }
 
   async editUmkmById(id, {
@@ -137,6 +147,7 @@ class UmkmService {
     };
 
     const result = await this._pool.query(query);
+    console.log('aku');
 
     if (!result.rowCount) {
       throw new NotFoundError('Gagal memperbarui Umkm. Id tidak ditemukan');
@@ -193,6 +204,17 @@ class UmkmService {
     if (note.owner !== owner) {
       throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
     }
+  }
+
+  async getImpactById(impactId) {
+    const queryImpact = {
+      text: 'SELECT * FROM impacts WHERE id = $1',
+      values: [impactId],
+    };
+
+    const impactResult = await this._pool.query(queryImpact);
+
+    return impactResult.rows[0];
   }
 }
 

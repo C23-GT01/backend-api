@@ -61,6 +61,12 @@ class ProductService {
     return result.rows.map(mapDBToModel);
   }
 
+  async getProductsRecomendation() {
+    const result = await this._pool.query('SELECT * FROM products ORDER BY RANDOM() LIMIT 4');
+
+    return result.rows.map(mapDBToModel);
+  }
+
   async getProductById(id) {
     const query = {
       text: 'SELECT * FROM products WHERE id = $1',

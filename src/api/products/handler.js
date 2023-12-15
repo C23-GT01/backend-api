@@ -57,6 +57,24 @@ class ProductsHandler {
     };
   }
 
+  async getProductsRecomendtionsHandler() {
+    const products = await this._service.getProductsRecomendation();
+    return {
+      error: false,
+      status: 'success',
+      message: 'Menampilkan semua produk',
+      count: products.length,
+      data: {
+        recommended_products: products.map((product) => ({
+          product_id: product.id,
+          product_name: product.name,
+          rating_x: '4+',
+          product_link: `https://web-app-five-beta.vercel.app/product/${product.id}`,
+        })),
+      },
+    };
+  }
+
   async getAllProductsbyCategoryHandler(request, h) {
     const { id } = request.params;
 

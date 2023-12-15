@@ -349,25 +349,6 @@ GET /recomendation
 }
 ```
 
-  
-# Product
-## Get All Product
-
-- Path
-```http
-GET /products
-```
-- Response
-```javascript
-{
-  "error"   : bool,
-  "status"  : string,
-  "message" : string,
-  "count"   : int,
-  "data"    : object,
-}
-```
-
 - Example Response
 ```json
 {
@@ -411,6 +392,27 @@ GET /products
     }
 }
 ```
+
+  
+# Product
+## Get All Product
+
+- Path
+```http
+GET /products
+```
+- Response
+```javascript
+{
+  "error"   : bool,
+  "status"  : string,
+  "message" : string,
+  "count"   : int,
+  "data"    : object,
+}
+```
+
+
 
 - Example Response
 ```json

@@ -61,10 +61,24 @@ class ProductService {
     return result.rows.map(mapDBToModel);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   async getProductsRecomendation() {
-    const result = await this._pool.query('SELECT * FROM products ORDER BY RANDOM() LIMIT 4');
+    const url = `${process.env.endpointML}/recommend`;
 
-    return result.rows.map(mapDBToModel);
+    const requestBody = {
+      encoded_user_id: 13,
+    };
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    const result = await response.json();
+    return result;
   }
 
   async getProductById(id) {

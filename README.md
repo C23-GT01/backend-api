@@ -11,6 +11,7 @@
   - [Delete Account](#Delete-Account)
 - [Product](#Product)
   - [Get All Product](#Get-All-Product)
+  - [Product Recomendation](#Product-Recomendation)
   - [Search](#Search)
   - [Filter by Category](#Filter-by-Category)
   - [Get Detail Product](#Get-Detail-Product)
@@ -330,9 +331,65 @@ Content-Type: application/json
 }
 ```
 
-# Machine Learning
 
-## Get
+
+  
+# Product
+## Get All Product
+
+- Path
+```http
+GET /products
+```
+- Response
+```javascript
+{
+  "error"   : bool,
+  "status"  : string,
+  "message" : string,
+  "count"   : int,
+  "data"    : object,
+}
+```
+
+
+
+- Example Response
+```json
+{
+    "error"   : false,
+    "status"  : "success",
+    "message" : "Menampilkan semua produk",
+    "count"   : 3,
+    "data"    : {
+        "products": [
+            {
+                "id": "product-3_PabLrYn6okMUwr",
+                "name": "Product 1",
+                "image": "https://picsum.photos/200",
+                "price": 10000,
+                "category": 1
+            },
+            {
+                "id": "product--4PQjQTklQLDLsB2",
+                "name": "Product 2",
+                "image": "https://picsum.photos/200",
+                "price": 30000,
+                "category": 2
+            },
+            {
+                "id": "product-IKqPltKAqIRWSNPw",
+                "name": "Product 3",
+                "image": "https://picsum.photos/200",
+                "price": 50000,
+                "category": 3
+            }
+        ]
+    }
+}
+```
+
+## Product Recomendation
 - Path
 ```http
 GET /recomendation
@@ -389,62 +446,6 @@ GET /recomendation
             "product_link": "https://www.amazon.in/Crompton-Greaves-ASWH-2015-15-Litre-Storage/dp/B07JGCGNDG/ref=sr_1_294_mod_primary_new?qid=1672923607&s=kitchen&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sr=1-294"
         }
     ]
-    }
-}
-```
-
-  
-# Product
-## Get All Product
-
-- Path
-```http
-GET /products
-```
-- Response
-```javascript
-{
-  "error"   : bool,
-  "status"  : string,
-  "message" : string,
-  "count"   : int,
-  "data"    : object,
-}
-```
-
-
-
-- Example Response
-```json
-{
-    "error"   : false,
-    "status"  : "success",
-    "message" : "Menampilkan semua produk",
-    "count"   : 3,
-    "data"    : {
-        "products": [
-            {
-                "id": "product-3_PabLrYn6okMUwr",
-                "name": "Product 1",
-                "image": "https://picsum.photos/200",
-                "price": 10000,
-                "category": 1
-            },
-            {
-                "id": "product--4PQjQTklQLDLsB2",
-                "name": "Product 2",
-                "image": "https://picsum.photos/200",
-                "price": 30000,
-                "category": 2
-            },
-            {
-                "id": "product-IKqPltKAqIRWSNPw",
-                "name": "Product 3",
-                "image": "https://picsum.photos/200",
-                "price": 50000,
-                "category": 3
-            }
-        ]
     }
 }
 ```
